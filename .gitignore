@@ -1,0 +1,11 @@
+#vim
+*.swp
+
+#mono
+*.mdb
+
+# monodevelop
+*.userprefs
+*.log
+
+bin/
