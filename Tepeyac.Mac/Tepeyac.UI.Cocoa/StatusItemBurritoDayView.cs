@@ -1,10 +1,10 @@
 using System;
+using System.Drawing;
 using MonoMac.AppKit;
-using Ninject;
-using Tepeyac.Core;
-using Ninject.Parameters;
-using System.IO;
 using MonoMac.Foundation;
+using Ninject;
+using Ninject.Parameters;
+using Tepeyac.Core;
 
 namespace Tepeyac.UI.Cocoa
 {
@@ -24,12 +24,17 @@ namespace Tepeyac.UI.Cocoa
 		
 		public void Dispose()
 		{
-			
+			this.presenter.Dispose();
 		}
 		
 		void IBurritoDayView.SetState(BurritoDayState state)
 		{
-			System.Console.WriteLine("state: {0}", state);
+			string name = state.ToString().ToLower();
+			var path = NSBundle.MainBundle.PathForResource(name, "png") ??
+				NSBundle.MainBundle.PathForResource("no", "png");
+
+			this.si.Image = new NSImage(path);
+			this.si.Image.Size = new SizeF(16, 16);
 		}
 	}
 }

@@ -40,6 +40,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\tepeyac\ext\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.cs">
@@ -86,6 +87,12 @@
   <ItemGroup>
     <Content Include="..\..\tepeyac\res\no.png">
       <Link>no.png</Link>
+    </Content>
+    <Content Include="..\..\tepeyac\res\tomorrow.png">
+      <Link>tomorrow.png</Link>
+    </Content>
+    <Content Include="..\..\tepeyac\res\yes.png">
+      <Link>yes.png</Link>
     </Content>
   </ItemGroup>
 </Project>
