@@ -3,6 +3,8 @@ using MonoMac.AppKit;
 using Ninject;
 using Tepeyac.Core;
 using Ninject.Parameters;
+using System.IO;
+using MonoMac.Foundation;
 
 namespace Tepeyac.UI.Cocoa
 {

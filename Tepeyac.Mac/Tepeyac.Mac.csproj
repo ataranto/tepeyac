@@ -83,4 +83,9 @@
   <ItemGroup>
     <Folder Include="Tepeyac.UI.Cocoa\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\tepeyac\res\no.png">
+      <Link>no.png</Link>
+    </Content>
+  </ItemGroup>
 </Project>
