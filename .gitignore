@@ -3,6 +3,7 @@
 
 #mono
 *.mdb
+*.pidb
 
 # monodevelop
 *.userprefs

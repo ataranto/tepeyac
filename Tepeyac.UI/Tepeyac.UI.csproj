@@ -34,11 +34,20 @@
     <Compile Include="IBurritoDayView.cs" />
     <Compile Include="BurritoDayPresenter.cs" />
     <Compile Include="Presenter.cs" />
+    <Compile Include="IToolKit.cs" />
+    <Compile Include="MainPresenter.cs" />
+    <Compile Include="Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
       <Project>{B9BD80F1-3987-408F-894A-17E3A6471793}</Project>
       <Name>Tepeyac.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tepeyac\ext\Ninject.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

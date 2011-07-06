@@ -7,7 +7,7 @@ namespace Tepeyac.UI
 		public BurritoDayPresenter(IBurritoDayModel model, IBurritoDayView view)
 			: base(model, view)
 		{
-					
+		
 		}
 		
 		public override void Dispose()

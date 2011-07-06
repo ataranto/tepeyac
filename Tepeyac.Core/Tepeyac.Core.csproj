@@ -33,5 +33,14 @@
   <ItemGroup>
     <Compile Include="IBurritoDayModel.cs" />
     <Compile Include="BurritoDayState.cs" />
+    <Compile Include="IPlatform.cs" />
+    <Compile Include="Platform.cs" />
+    <Compile Include="Module.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tepeyac\ext\Ninject.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
