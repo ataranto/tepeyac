@@ -37,6 +37,7 @@
     <Compile Include="IToolKit.cs" />
     <Compile Include="MainPresenter.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="IView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">

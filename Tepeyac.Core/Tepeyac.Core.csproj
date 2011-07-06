@@ -36,6 +36,7 @@
     <Compile Include="IPlatform.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="BurritoDayModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">

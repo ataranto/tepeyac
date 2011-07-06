@@ -1,3 +1,4 @@
+using MonoMac.AppKit;
 using Ninject;
 
 namespace Tepeyac.Mac
@@ -6,6 +7,8 @@ namespace Tepeyac.Mac
 	{
 		static void Main (string[] args)
 		{
+			NSApplication.Init();
+			
 			var kernel = new StandardKernel(
 				new Tepeyac.Core.Module(),
 			    //new Tepeyac.Core.Mac.Module(),
@@ -14,11 +17,7 @@ namespace Tepeyac.Mac
 			);
 			                  
 			kernel.Get<Tepeyac.UI.MainPresenter>();
-			
-			/*
-			NSApplication.Init ();
-			NSApplication.Main (args);
-			*/
+			NSApplication.Main(args);
 		}
 	}
 }

@@ -58,6 +58,8 @@
     <Compile Include="MainMenu.xib.designer.cs">
       <DependentUpon>MainMenu.xib</DependentUpon>
     </Compile>
+    <Compile Include="Tepeyac.UI.Cocoa\StatusItemBurritoDayView.cs" />
+    <Compile Include="Tepeyac.UI.Cocoa\Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
@@ -77,9 +79,8 @@
       <Project>{B624A415-19F3-42CE-8D77-8C5DEA4489C9}</Project>
       <Name>Tepeyac.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tepeyac.UI.Cocoa\Tepeyac.UI.Cocoa.csproj">
-      <Project>{557B5A48-0302-4EE1-908A-2674384E62F8}</Project>
-      <Name>Tepeyac.UI.Cocoa</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tepeyac.UI.Cocoa\" />
   </ItemGroup>
 </Project>

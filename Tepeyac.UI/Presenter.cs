@@ -2,7 +2,7 @@ using System;
 
 namespace Tepeyac.UI
 {
-	public abstract class Presenter<TModel, TView> : IDisposable
+	public abstract class Presenter<TModel, TView> : IDisposable where TView : IView
 	{
 		protected TModel model;
 		protected TView view;

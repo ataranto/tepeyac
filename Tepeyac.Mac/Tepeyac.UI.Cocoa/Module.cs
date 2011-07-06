@@ -6,7 +6,7 @@ namespace Tepeyac.UI.Cocoa
 	{
 		public override void Load()
 		{
-			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayViewController>().InSingletonScope();
+			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayView>().InSingletonScope();	
 		}
 	}
 }

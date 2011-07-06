@@ -7,7 +7,8 @@ namespace Tepeyac.Core
 	{
 		public override void Load()
 		{
-			this.Bind<IPlatform>().To<Platform>().InSingletonScope();	
+			this.Bind<IPlatform>().To<Platform>().InSingletonScope();
+			this.Bind<IBurritoDayModel>().To<BurritoDayModel>().InSingletonScope();
 		}
 	}
 }
