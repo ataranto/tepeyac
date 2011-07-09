@@ -8,5 +8,5 @@
 # monodevelop
 *.userprefs
 *.log
-
 bin/
+obj/

@@ -1,5 +1,6 @@
 using System;
 using Ninject.Modules;
+using Retlang.Fibers;
 
 namespace Tepeyac.Core
 {
@@ -7,8 +8,19 @@ namespace Tepeyac.Core
 	{
 		public override void Load()
 		{
-			this.Bind<IPlatform>().To<Platform>().InSingletonScope();
-			this.Bind<IBurritoDayModel>().To<BurritoDayModel>().InSingletonScope();
+			var executor = new Executor();
+			base.Bind<IFiber>().ToMethod(c =>
+			{
+				var fiber = new PoolFiber(executor);
+				fiber.Start();
+				
+				return fiber;
+			});
+			
+			base.Bind<IWebClient>().To<WebClient>();
+			
+			base.Bind<IPlatform>().To<Platform>().InSingletonScope();
+			base.Bind<IBurritoDayModel>().To<BurritoDayModel>().InSingletonScope();
 		}
 	}
 }
