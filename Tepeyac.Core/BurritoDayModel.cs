@@ -1,7 +1,6 @@
 using System;
-using System.Text;
-using System.Xml;
 using System.Timers;
+using HtmlAgilityPack;
 
 namespace Tepeyac.Core
 {
@@ -13,7 +12,7 @@ namespace Tepeyac.Core
 		private readonly Timer timer = new Timer();
 		private readonly IWebClient client;
 		
-		private TimeSpan interval = TimeSpan.FromSeconds(10);
+		private TimeSpan interval = TimeSpan.FromHours(1);
 		private BurritoDayState state = BurritoDayState.Unknown;
 		
 		public BurritoDayModel(IWebClient client)
@@ -52,14 +51,26 @@ namespace Tepeyac.Core
 		{
 			try
 			{
-				var doc = new XmlDocument();
-				//doc.LoadXml(xml);
+				var doc = new HtmlDocument();
+				doc.LoadHtml(data);
 				
-				Console.WriteLine(data);
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex);
+				var node = doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
+				if (node == null || node.InnerText == null)
+				{
+					this.State = BurritoDayState.Unknown;
+				}
+				else
+				{
+					var text = node.InnerText.Trim().ToLower();
+					if (text == "yes")
+					{
+						this.State = BurritoDayState.Yes;
+					}
+					else if (text == "no")
+					{
+						this.State = BurritoDayState.No;	
+					}
+				}
 			}
 			finally
 			{
@@ -70,7 +81,7 @@ namespace Tepeyac.Core
 		
 		private void Poll()
 		{
-			this.client.DownloadDataAsync(this.uri);
+			this.client.DownloadStringAsync(this.uri);
 		}
 	}
 }

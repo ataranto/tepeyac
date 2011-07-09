@@ -1,7 +1,7 @@
+using System.IO;
 using Moq;
 using NUnit.Framework;
 using Tepeyac.Test;
-using System.IO;
 
 namespace Tepeyac.Core.Test
 {
@@ -23,9 +23,10 @@ namespace Tepeyac.Core.Test
 			Assert.AreEqual(BurritoDayState.Unknown, this.model.State);
 		}
 		
-		[TestCase("no.html", BurritoDayState.No)]
-		[TestCase("yes.html", BurritoDayState.Yes)]
-		public void Test(string resource, BurritoDayState state)
+		// XXX: nunit isn't picking these up, not sure why
+		[TestCase("Tepeyac.Core.Test.no.html", BurritoDayState.No)]
+		[TestCase("Tepeyac.Core.Test.yes.html", BurritoDayState.Yes)]
+		public void TestParse(string resource, BurritoDayState state)
 		{
 			using (var stream = base.GetType().Assembly.GetManifestResourceStream(resource))
 			using (var reader = new StreamReader(stream))
@@ -34,6 +35,30 @@ namespace Tepeyac.Core.Test
 			}
 			
 			Assert.AreEqual(state, this.model.State);
+		}
+		
+		[Test]
+		public void TestNo()
+		{
+			using (var stream = base.GetType().Assembly.GetManifestResourceStream("Tepeyac.Core.Test.no.html"))
+			using (var reader = new StreamReader(stream))
+			{
+				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
+			}
+			
+			Assert.AreEqual(BurritoDayState.No, this.model.State);
+		}
+		
+		[Test]
+		public void TestYes()
+		{
+			using (var stream = base.GetType().Assembly.GetManifestResourceStream("Tepeyac.Core.Test.yes.html"))
+			using (var reader = new StreamReader(stream))
+			{
+				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
+			}
+			
+			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
 		}
 	}
 }

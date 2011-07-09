@@ -25,9 +25,11 @@ namespace Tepeyac.UI
 		
 		private void ViewSetState()
 		{
+			Console.WriteLine("set state: {0}", base.model.State);
+			
 			// XXX: gui fiber
-			var state = base.model.State;
-			base.view.SetState(state);
+			//var state = base.model.State;
+			//base.view.SetState(state);
 		}
 	}
 }
