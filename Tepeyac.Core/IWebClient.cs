@@ -3,7 +3,7 @@ namespace Tepeyac.Core
 {
 	public interface IWebClient
 	{
-		event Action<bool, Exception, byte[]> Completed;
+		event Action<bool, Exception, string> Completed;
 		
 		void DownloadDataAsync(Uri uri);
 	}

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <UnitTestResult>
+      <TestDate>2011-07-09T01:57:51</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T01:59:00</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T01:59:04</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T01:59:28</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:00:16</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:00:30</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:00:52</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:01:50</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:06:38</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:08:21</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:08:49</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:09:48</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2011-07-09T02:11:15</TestDate>
+      <Status>Ignored</Status>
+      <TotalFailures>0</TotalFailures>
+      <TotalSuccess>0</TotalSuccess>
+      <TotalIgnored>0</TotalIgnored>
+      <Time />
+      <Message>Has no TestFixtures</Message>
+    </UnitTestResult>
+  </Results>
+</TestRecord>

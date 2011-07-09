@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.Core", "Tepeyac.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.UI", "Tepeyac.UI\Tepeyac.UI.csproj", "{B624A415-19F3-42CE-8D77-8C5DEA4489C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.Core.Test", "Tepeyac.Core.Test\Tepeyac.Core.Test.csproj", "{663E268A-E212-40D6-A941-D19EDA58AC50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.Test", "Tepeyac.Test\Tepeyac.Test.csproj", "{7027396D-756C-4C94-A747-448CF4B35A82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{613A4431-CB80-47BE-BDD8-5359F7CC42FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{613A4431-CB80-47BE-BDD8-5359F7CC42FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{613A4431-CB80-47BE-BDD8-5359F7CC42FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{663E268A-E212-40D6-A941-D19EDA58AC50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{663E268A-E212-40D6-A941-D19EDA58AC50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{663E268A-E212-40D6-A941-D19EDA58AC50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{663E268A-E212-40D6-A941-D19EDA58AC50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7027396D-756C-4C94-A747-448CF4B35A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7027396D-756C-4C94-A747-448CF4B35A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7027396D-756C-4C94-A747-448CF4B35A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7027396D-756C-4C94-A747-448CF4B35A82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B624A415-19F3-42CE-8D77-8C5DEA4489C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B624A415-19F3-42CE-8D77-8C5DEA4489C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B624A415-19F3-42CE-8D77-8C5DEA4489C9}.Release|Any CPU.ActiveCfg = Release|Any CPU

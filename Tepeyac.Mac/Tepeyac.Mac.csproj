@@ -38,7 +38,7 @@
     </Reference>
     <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\tepeyac\ext\Ninject.dll</HintPath>
+      <HintPath>..\ext\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
   </ItemGroup>
@@ -75,13 +75,13 @@
     <Folder Include="Tepeyac.UI.Cocoa\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\tepeyac\res\no.png">
+    <Content Include="..\res\no.png">
       <Link>no.png</Link>
     </Content>
-    <Content Include="..\..\tepeyac\res\tomorrow.png">
+    <Content Include="..\res\tomorrow.png">
       <Link>tomorrow.png</Link>
     </Content>
-    <Content Include="..\..\tepeyac\res\yes.png">
+    <Content Include="..\res\yes.png">
       <Link>yes.png</Link>
     </Content>
   </ItemGroup>

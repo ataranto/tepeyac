@@ -10,3 +10,7 @@
 *.log
 bin/
 obj/
+
+# nunit
+TestResult.xml
+test-results/

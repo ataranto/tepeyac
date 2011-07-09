@@ -5,14 +5,14 @@ namespace Tepeyac.Core
 {
 	public class WebClient : System.Net.WebClient, IWebClient
 	{
-		public event Action<bool, Exception, byte[]> Completed;
+		public event Action<bool, Exception, string> Completed;
 		
 		public WebClient ()
 		{
-			base.DownloadDataCompleted += this.OnDownloadDataCompleted;
+			base.DownloadStringCompleted += this.OnDownloadStringCompleted;
 		}
 		
-		private void OnDownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
+		private void OnDownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
 		{
 			var handler = this.Completed;
 			if (handler != null)
