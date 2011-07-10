@@ -41,6 +41,10 @@
       <HintPath>..\ext\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="Retlang, Version=1.0.6.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ext\Retlang.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -52,6 +56,8 @@
     </Compile>
     <Compile Include="Tepeyac.UI.Cocoa\StatusItemBurritoDayView.cs" />
     <Compile Include="Tepeyac.UI.Cocoa\Module.cs" />
+    <Compile Include="Tepeyac.UI.Cocoa\CocoaFiber.cs" />
+    <Compile Include="Tepeyac.UI.Cocoa\CocoaAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainMenu.xib" />

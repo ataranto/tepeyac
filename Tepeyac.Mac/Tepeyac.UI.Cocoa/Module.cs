@@ -1,4 +1,6 @@
 using Ninject.Modules;
+using Tepeyac.Core;
+using Retlang.Fibers;
 
 namespace Tepeyac.UI.Cocoa
 {
@@ -6,8 +8,12 @@ namespace Tepeyac.UI.Cocoa
 	{
 		public override void Load()
 		{
+			var guiFiber = new CocoaFiber(new Executor());
+			guiFiber.Start();
+			this.Bind<IFiber>().ToConstant(guiFiber).
+				WhenTargetHas<GuiFiberAttribute>();
+			
 			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayView>().InSingletonScope();	
 		}
 	}
 }
-

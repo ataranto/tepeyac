@@ -38,6 +38,8 @@
     <Compile Include="MainPresenter.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="IView.cs" />
+    <Compile Include="GuiFiberAttribute.cs" />
+    <Compile Include="GuiPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
@@ -50,5 +52,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ext\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Retlang, Version=1.0.6.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ext\Retlang.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
 </Project>

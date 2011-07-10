@@ -4,8 +4,8 @@ namespace Tepeyac.UI
 {
 	public abstract class Presenter<TModel, TView> : IDisposable where TView : IView
 	{
-		protected TModel model;
-		protected TView view;
+		protected readonly TModel model;
+		protected readonly TView view;
 		
 		public Presenter(TModel model, TView view)
 		{
