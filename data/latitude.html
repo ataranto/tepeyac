@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<!--[if gte IE 5.5]>
+<![if lt IE 7]>
+<style type="text/css">
+#al1 img { filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); }
+#al1 { display: inline-block; }
+#al1 { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/latitude/apps/static/latitude-icon-small.png'); }
+</style>
+<![endif]>
+<![endif]-->
+<style type="text/css">
+body { margin: 0; padding: 8px; overflow: hidden; background-color: white; font: 0.8em arial, sans-serif; color: black; }
+a { color: #2b62c7; }
+.location_badge_duration { white-space: nowrap; color: #9b9b9b; }
+.location_badge_promo { white-space: nowrap; border-top: 1px solid #e4e4e4; padding-top: 7px; font-size: 0.85em; }
+.location_badge_promo img { vertical-align: middle; padding-right: 5px; }
+.location_badge_text { padding: 6px 0px; }
+#bluecircle { position: absolute; -ms-interpolation-mode:bicubic; }
+#placard { position: absolute; }
+#photo { position: absolute; -ms-interpolation-mode:bicubic; }
+</style>
+<script type="text/javascript">
+function getWindowWidth() {
+var width = 0;
+if (window.self && self.innerWidth) {
+width = self.innerWidth;
+} else if (document.documentElement && document.documentElement.clientWidth) {
+width = document.documentElement.clientWidth;
+} else if (document.body) {
+width = document.body.clientWidth;
+}
+if (width > 1000) {
+width = 1000;
+}
+return width;
+}
+function getWindowHeight() {
+var height = 0;
+if (window.self && self.innerHeight) {
+height = self.innerHeight;
+} else if (document.documentElement && document.documentElement.clientHeight) {
+height = document.documentElement.clientHeight;
+} else if (document.body) {
+height = document.body.clientHeight;
+}
+if (height > 1000) {
+height = 1000;
+}
+return height;
+}
+function calculateOffsetTop(element, opt_top) {
+var top = opt_top || null;
+var offset = 0;
+for (var elem = element; elem && elem != opt_top; elem = elem.offsetParent) {
+offset += elem.offsetTop;
+}
+return offset;
+}
+function calculateOffsetLeft(element, opt_left) {
+var left = opt_left || null;
+var offset = 0;
+for (var elem = element; elem && elem != opt_left; elem = elem.offsetParent) {
+offset += elem.offsetLeft;
+}
+return offset;
+}
+function e(name) {
+return document.getElementById(name);
+}
+function resize() {
+var placardWidth = 56;
+var placardHeight = 59;
+var photoWidth = 36;
+var photoHeight = 36;
+var frameOffsetX = 10;
+var frameOffsetY = 8;
+var centerOffsetX = placardWidth / 2;
+var centerOffsetY = placardHeight - (frameOffsetY + (photoHeight / 2));
+var mapHeight = getWindowHeight() - 16 -
+(calculateOffsetTop(e('belowPromo')) - calculateOffsetTop(e('abovePromo')));
+var mapWidth = getWindowWidth() - (16);
+e('map').src = "/latitude/apps/badge/api?type=staticmap&center=37.7939214120608,-122.396522&zoom=13&sensor=false&size=0x0&client=google-latitude-analytics&language=en&maptype=roadmap&signature=w4QLUV0_K0rwfuFthd2aHWM1vvo%3D".replace(/&size=\d+x\d+/, "&size=" + mapWidth + "x" + mapHeight);
+e('map').width = mapWidth;
+e('map').height = mapHeight;
+e('placard').style.top = ((mapHeight / 2) + 8 - centerOffsetY) + "px";
+e('placard').style.left = ((mapWidth / 2) + 8 - centerOffsetX) + "px";
+e('placard').width = placardWidth;
+e('placard').height = placardHeight;
+e('photo').style.top = ((mapHeight / 2) + 8 + frameOffsetY - centerOffsetY) + "px";
+e('photo').style.left = ((mapWidth / 2) + 8 + frameOffsetX - centerOffsetX) + "px";
+e('photo').width = photoWidth;
+e('photo').height = photoHeight;
+e('bluecircle').style.top = ((mapHeight / 2) + 8 - centerOffsetY) + placardHeight - 39;
+e('bluecircle').style.left = ((mapWidth / 2) + 8 - centerOffsetX) + (placardWidth / 2) - 39;
+}
+function showImages() {
+e('placard').style.visibility = "visible";
+e('photo').style.visibility = "visible";
+e('bluecircle').style.visibility = "visible";
+}
+</script>
+</head>
+<body onload="showImages();" onresize="resize();">
+<div class="location_badge">
+<img id="map" width="0" height="0" />
+<img style="visibility: hidden;" id="bluecircle" src="http://www.google.com/latitude/apps/badge/api?type=circle&amp;size=39&amp;format=png" width="78" height="78"/>
+<img style="visibility: hidden;" id="placard" src="http://www.google.com/latitude/apps/badge/api?type=placard&amp;moving=false&amp;stale=true&amp;lod=1&amp;format=png"/>
+<img style="visibility: hidden;" id="photo" src="http://www.google.com/latitude/apps/badge/api?type=photo&photo=YFugHzEBAAA.kf1hWKT8tvWYPgJjBJz_1Q.oNZGZHIP9Xc3S0IHwTDVpg" title="Accurate to 594 meters" border="0"/>
+<div id="abovePromo" class="location_badge_text"><span class="geocode">San Francisco, CA, USA</span> &nbsp; <span class="location_badge_duration">6 days ago</span></div>
+<div class="location_badge_promo"><a target="_top" href="http://www.google.com/latitude/#dc=latb"><span id="al1" style="width: 24px; height: 24px;"><img src="/latitude/apps/static/latitude-icon-small.png" border="0" width="24" height="24"></span></a><a target="_top" href="http://www.google.com/latitude/#dc=latb">google.com/latitude</a><br/></div>
+<div id="belowPromo"></div>
+<script>resize();</script>
+</div>
+</body>
+</html>
