@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{663E268A-E212-40D6-A941-D19EDA58AC50}</ProjectGuid>
+    <ProjectGuid>{C411407D-380C-4EDA-A27A-0A58FE2EA566}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Tepeyac.Core.Test</RootNamespace>
-    <AssemblyName>Tepeyac.Core.Test</AssemblyName>
+    <RootNamespace>Tepeyac.UI.Test</RootNamespace>
+    <AssemblyName>Tepeyac.UI.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,38 +31,36 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="BurritoDayModelTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ext\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ext\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ext\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Retlang, Version=1.0.6.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ext\Retlang.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
-      <Project>{B9BD80F1-3987-408F-894A-17E3A6471793}</Project>
-      <Name>Tepeyac.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tepeyac.Test\Tepeyac.Test.csproj">
       <Project>{7027396D-756C-4C94-A747-448CF4B35A82}</Project>
       <Name>Tepeyac.Test</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tepeyac.UI\Tepeyac.UI.csproj">
+      <Project>{B624A415-19F3-42CE-8D77-8C5DEA4489C9}</Project>
+      <Name>Tepeyac.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
+      <Project>{B9BD80F1-3987-408F-894A-17E3A6471793}</Project>
+      <Name>Tepeyac.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\data\no.html">
-      <Link>no.html</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\data\yes.html">
-      <Link>yes.html</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\data\tomorrow.html">
-      <Link>tomorrow.html</Link>
-    </EmbeddedResource>
+    <Compile Include="UrlActivationPresenterTest.cs" />
+    <Compile Include="BurritoDayPresenterTest.cs" />
   </ItemGroup>
 </Project>

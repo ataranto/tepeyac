@@ -2,6 +2,7 @@ using System.IO;
 using Moq;
 using NUnit.Framework;
 using Tepeyac.Test;
+using System;
 
 namespace Tepeyac.Core.Test
 {
@@ -21,6 +22,13 @@ namespace Tepeyac.Core.Test
 		public void TestInitialState()
 		{
 			Assert.AreEqual(BurritoDayState.Unknown, this.model.State);
+		}
+		
+		[Test]
+		public void TestRefresh()
+		{
+			this.mockClient.Setup(m => m.DownloadStringAsync(It.IsAny<Uri>()));
+			this.model.Refresh();
 		}
 		
 		// XXX: nunit isn't picking these up, not sure why

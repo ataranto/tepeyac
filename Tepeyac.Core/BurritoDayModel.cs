@@ -29,9 +29,9 @@ namespace Tepeyac.Core
 			this.client.Completed += this.OnClientCompleted;
 			
 			this.timer.AutoReset = false;
-			this.timer.Elapsed += delegate { this.Poll(); };
+			this.timer.Elapsed += delegate { this.Refresh(); };
 
-			this.Poll();
+			this.Refresh();
 		}
 		
 		public BurritoDayState State
@@ -55,6 +55,12 @@ namespace Tepeyac.Core
 			}
 		}
 		
+		public void Refresh()
+		{
+			this.timer.Enabled = false;
+			this.client.DownloadStringAsync(this.uri);
+		}
+		
 		private void OnClientCompleted(bool success, Exception error, string data)
 		{
 			try
@@ -66,11 +72,6 @@ namespace Tepeyac.Core
 				this.timer.Interval = this.interval.TotalMilliseconds;
 				timer.Enabled = true;
 			}
-		}
-		
-		private void Poll()
-		{
-			this.client.DownloadStringAsync(this.uri);
 		}
 			
 		private BurritoDayState GetState(string data)

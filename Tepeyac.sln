@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.Core.Test", "Tepeya
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.Test", "Tepeyac.Test\Tepeyac.Test.csproj", "{7027396D-756C-4C94-A747-448CF4B35A82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.UI.Test", "Tepeyac.UI.Test\Tepeyac.UI.Test.csproj", "{C411407D-380C-4EDA-A27A-0A58FE2EA566}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{B9BD80F1-3987-408F-894A-17E3A6471793}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9BD80F1-3987-408F-894A-17E3A6471793}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9BD80F1-3987-408F-894A-17E3A6471793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C411407D-380C-4EDA-A27A-0A58FE2EA566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C411407D-380C-4EDA-A27A-0A58FE2EA566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C411407D-380C-4EDA-A27A-0A58FE2EA566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C411407D-380C-4EDA-A27A-0A58FE2EA566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Tepeyac.Mac\Tepeyac.Mac.csproj

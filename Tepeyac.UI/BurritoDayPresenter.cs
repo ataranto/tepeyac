@@ -10,6 +10,7 @@ namespace Tepeyac.UI
 			: base(model, view, guiFiber)
 		{
 			base.model.StateChanged += this.OnModelStateChanged;
+			base.view.RefreshActivated += this.OnViewRefreshActivated;
 			
 			this.ViewSetState();
 		}
@@ -17,11 +18,17 @@ namespace Tepeyac.UI
 		public override void Dispose()
 		{
 			base.model.StateChanged -= this.OnModelStateChanged;
+			base.view.RefreshActivated -= this.OnViewRefreshActivated;
 		}
 		
 		private void OnModelStateChanged(object sender, EventArgs e)
 		{
 			this.ViewSetState();
+		}
+		
+		private void OnViewRefreshActivated(object sender, EventArgs e)
+		{
+			base.model.Refresh();	
 		}
 		
 		private void ViewSetState()

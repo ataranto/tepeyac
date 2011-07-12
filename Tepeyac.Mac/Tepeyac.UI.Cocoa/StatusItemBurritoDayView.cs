@@ -55,6 +55,12 @@ namespace Tepeyac.UI.Cocoa
 		
 		#region IBurritoDayView
 		
+		event EventHandler IBurritoDayView.RefreshActivated
+		{
+			add { this.RefreshMenuItem.Activated += value; }
+			remove { this.RefreshMenuItem.Activated -= value; }
+		}
+		
 		void IBurritoDayView.SetState(BurritoDayState state)
 		{
 			var name = state.ToString().ToLower();
