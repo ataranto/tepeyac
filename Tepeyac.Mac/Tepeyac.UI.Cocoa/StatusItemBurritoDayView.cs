@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 using Ninject;
@@ -7,10 +8,10 @@ using Tepeyac.Core;
 
 namespace Tepeyac.UI.Cocoa
 {
-	public class StatusItemBurritoDayView : IBurritoDayView
+	public class StatusItemBurritoDayView : IBurritoDayView, IUrlActivationView
 	{
 		private readonly NSStatusItem si;
-		private readonly IDisposable presenter;
+		private readonly ICollection<IDisposable> presenters;
 		
 		private readonly NSMenuItem RefreshMenuItem = new NSMenuItem("Refresh");
 		private readonly NSMenuItem LaunchMenuItem = new NSMenuItem("Launch Burrito Website");
@@ -18,6 +19,13 @@ namespace Tepeyac.UI.Cocoa
 		
 		public StatusItemBurritoDayView (IKernel kernel)
 		{
+			this.LaunchMenuItem.Activated += delegate {
+				var handler = this.urlActivated;
+				if (handler != null)
+				{
+					handler(this, "http://isitburritoday.com");
+				}
+			};
 			this.QuitMenuItem.Activated += (sender, e) => NSApplication.SharedApplication.Terminate(sender as NSObject);
 			
 			this.si = NSStatusBar.SystemStatusBar.CreateStatusItem(28);
@@ -30,12 +38,19 @@ namespace Tepeyac.UI.Cocoa
 			this.si.Menu.AddItem(this.QuitMenuItem);
 			
 			var parameter = new ConstructorArgument("view", this);
-			this.presenter = kernel.Get<BurritoDayPresenter>(parameter);
+			this.presenters = new IDisposable[]
+			{
+				kernel.Get<BurritoDayPresenter>(parameter),
+				kernel.Get<UrlActivationPresenter>(parameter),
+			};
 		}
 		
 		public void Dispose()
 		{
-			this.presenter.Dispose();
+			foreach (var presenter in this.presenters)
+			{
+				presenter.Dispose();
+			}
 		}
 		
 		#region IBurritoDayView
@@ -47,6 +62,17 @@ namespace Tepeyac.UI.Cocoa
 				NSBundle.MainBundle.PathForResource("no", "png");
 
 			this.si.Image = new NSImage(path);
+		}
+		
+		#endregion
+		
+		#region IUrlActivationPresenter
+		
+		private event Action<object, string> urlActivated;
+		event Action<object, string> IUrlActivationView.Activated
+		{
+			add { this.urlActivated += value; }
+			remove { this.urlActivated -= value; }
 		}
 		
 		#endregion

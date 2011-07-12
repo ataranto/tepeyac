@@ -13,7 +13,9 @@ namespace Tepeyac.UI.Cocoa
 			this.Bind<IFiber>().ToConstant(guiFiber).
 				WhenTargetHas<GuiFiberAttribute>();
 			
-			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayView>().InSingletonScope();	
+			this.Rebind<ILauncher>().To<Launcher>().InSingletonScope();
+			
+			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayView>().InSingletonScope();
 		}
 	}
 }

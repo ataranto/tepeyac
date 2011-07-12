@@ -58,6 +58,7 @@
     <Compile Include="Tepeyac.UI.Cocoa\Module.cs" />
     <Compile Include="Tepeyac.UI.Cocoa\CocoaFiber.cs" />
     <Compile Include="Tepeyac.UI.Cocoa\CocoaAdapter.cs" />
+    <Compile Include="Tepeyac.UI.Cocoa\Launcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainMenu.xib" />

@@ -6,7 +6,7 @@ namespace Tepeyac.UI
 	{
 		public override void Load()
 		{
-
+			base.Bind<ILauncher>().To<Launcher>().InSingletonScope();
 		}
 	}
 }

@@ -40,6 +40,10 @@
     <Compile Include="IView.cs" />
     <Compile Include="GuiFiberAttribute.cs" />
     <Compile Include="GuiPresenter.cs" />
+    <Compile Include="ILauncher.cs" />
+    <Compile Include="Launcher.cs" />
+    <Compile Include="IUrlActivationView.cs" />
+    <Compile Include="UrlActivationPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
@@ -57,5 +61,6 @@
       <HintPath>..\ext\Retlang.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System" />
   </ItemGroup>
 </Project>
