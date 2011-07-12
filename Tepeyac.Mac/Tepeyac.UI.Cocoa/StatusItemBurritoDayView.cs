@@ -34,7 +34,7 @@ namespace Tepeyac.UI.Cocoa
 				NSBundle.MainBundle.PathForResource("no", "png");
 
 			this.si.Image = new NSImage(path);
-			this.si.Image.Size = new SizeF(16, 16);
+			this.si.Image.Size = new SizeF(22, 16);
 		}
 	}
 }
