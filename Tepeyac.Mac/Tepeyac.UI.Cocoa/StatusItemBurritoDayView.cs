@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 using Ninject;
@@ -34,7 +33,6 @@ namespace Tepeyac.UI.Cocoa
 				NSBundle.MainBundle.PathForResource("no", "png");
 
 			this.si.Image = new NSImage(path);
-			this.si.Image.Size = new SizeF(22, 16);
 		}
 	}
 }

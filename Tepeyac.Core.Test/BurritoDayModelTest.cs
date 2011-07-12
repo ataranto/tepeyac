@@ -25,6 +25,7 @@ namespace Tepeyac.Core.Test
 		
 		// XXX: nunit isn't picking these up, not sure why
 		[TestCase("Tepeyac.Core.Test.no.html", BurritoDayState.No)]
+		[TestCase("Tepeyac.Core.Test.tomorrow.html", BurritoDayState.Tomorrow)]
 		[TestCase("Tepeyac.Core.Test.yes.html", BurritoDayState.Yes)]
 		public void TestParse(string resource, BurritoDayState state)
 		{
@@ -47,6 +48,18 @@ namespace Tepeyac.Core.Test
 			}
 			
 			Assert.AreEqual(BurritoDayState.No, this.model.State);
+		}
+		
+		[Test]
+		public void TestTomorrow()
+		{
+			using (var stream = base.GetType().Assembly.GetManifestResourceStream("Tepeyac.Core.Test.tomorrow.html"))
+			using (var reader = new StreamReader(stream))
+			{
+				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
+			}
+			
+			Assert.AreEqual(BurritoDayState.Tomorrow, this.model.State);
 		}
 		
 		[Test]

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Timers;
 using HtmlAgilityPack;
 
@@ -7,6 +8,13 @@ namespace Tepeyac.Core
 	public class BurritoDayModel : IBurritoDayModel
 	{
 		public event EventHandler StateChanged;
+		
+		private readonly IDictionary<string, BurritoDayState> keywords = new Dictionary<string, BurritoDayState>()
+		{
+			{ "no", BurritoDayState.No },
+			{ "yes", BurritoDayState.Yes },
+			{ "tomorrow", BurritoDayState.Tomorrow },
+		};
 		
 		private readonly Uri uri = new Uri("http://isitburritoday.com");
 		private readonly Timer timer = new Timer();
@@ -22,7 +30,7 @@ namespace Tepeyac.Core
 			
 			this.timer.AutoReset = false;
 			this.timer.Elapsed += delegate { this.Poll(); };
-			
+
 			this.Poll();
 		}
 		
@@ -51,26 +59,7 @@ namespace Tepeyac.Core
 		{
 			try
 			{
-				var doc = new HtmlDocument();
-				doc.LoadHtml(data);
-				
-				var node = doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
-				if (node == null || node.InnerText == null)
-				{
-					this.State = BurritoDayState.Unknown;
-				}
-				else
-				{
-					var text = node.InnerText.Trim().ToLower();
-					if (text == "yes")
-					{
-						this.State = BurritoDayState.Yes;
-					}
-					else if (text == "no")
-					{
-						this.State = BurritoDayState.No;	
-					}
-				}
+				this.State = this.GetState(data);
 			}
 			finally
 			{
@@ -82,6 +71,31 @@ namespace Tepeyac.Core
 		private void Poll()
 		{
 			this.client.DownloadStringAsync(this.uri);
+		}
+			
+		private BurritoDayState GetState(string data)
+		{
+			var doc = new HtmlDocument();
+			doc.LoadHtml(data);
+			
+			var node =
+				doc.DocumentNode.SelectSingleNode("//div[@id='hooray']") ??
+				doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
+			
+			if (node != null && !String.IsNullOrEmpty(node.InnerText))
+			{
+				var text = node.InnerText.ToLower();
+				
+				foreach (var pair in this.keywords)
+				{
+					if (text.Contains(pair.Key))
+					{
+						return pair.Value;	
+					}
+				}
+			}
+			
+			return BurritoDayState.Unknown;
 		}
 	}
 }

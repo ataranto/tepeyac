@@ -60,5 +60,8 @@
     <EmbeddedResource Include="..\data\yes.html">
       <Link>yes.html</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\data\tomorrow.html">
+      <Link>tomorrow.html</Link>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
