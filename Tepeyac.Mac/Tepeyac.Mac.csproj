@@ -91,5 +91,6 @@
     <Content Include="..\res\yes.png">
       <Link>yes.png</Link>
     </Content>
+    <Content Include="tepeyac.icns" />
   </ItemGroup>
 </Project>
