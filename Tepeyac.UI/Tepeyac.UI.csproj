@@ -44,6 +44,8 @@
     <Compile Include="Launcher.cs" />
     <Compile Include="IUrlActivationView.cs" />
     <Compile Include="UrlActivationPresenter.cs" />
+    <Compile Include="IActivationView.cs" />
+    <Compile Include="IPreferencesView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
