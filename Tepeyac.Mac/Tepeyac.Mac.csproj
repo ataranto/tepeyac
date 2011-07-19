@@ -29,6 +29,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="BeforeBuild" command="xcodebuild" workingdir="${ProjectDir}/Tepeyac.Mac.Integration/framework/" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -84,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tepeyac.UI.Cocoa\" />
+    <Folder Include="Tepeyac.Mac.Integration\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\res\no.png">

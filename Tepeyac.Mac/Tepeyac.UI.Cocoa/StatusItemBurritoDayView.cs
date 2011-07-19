@@ -45,6 +45,7 @@ namespace Tepeyac.UI.Cocoa
 			{
 				kernel.Get<BurritoDayPresenter>(parameter),
 				kernel.Get<UrlActivationPresenter>(parameter),
+				kernel.Get<ViewActivationPresenter<IPreferencesView>>(parameter),
 			};
 		}
 		

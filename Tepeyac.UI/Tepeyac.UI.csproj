@@ -46,6 +46,7 @@
     <Compile Include="UrlActivationPresenter.cs" />
     <Compile Include="IActivationView.cs" />
     <Compile Include="IPreferencesView.cs" />
+    <Compile Include="ViewActivationPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
