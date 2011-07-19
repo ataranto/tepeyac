@@ -1,6 +1,7 @@
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 using Ninject;
+using Tepeyac.Mac.Integration;
 
 namespace Tepeyac.Mac
 {
@@ -8,6 +9,8 @@ namespace Tepeyac.Mac
 	{
 		public override void FinishedLaunching (NSObject notification)
 		{
+			LSSharedFileList.InsertLoginItem(NSBundle.MainBundle.BundlePath);
+			
 			var kernel = new StandardKernel(
 				new Tepeyac.Core.Module(),
 			    //new Tepeyac.Core.Mac.Module(),

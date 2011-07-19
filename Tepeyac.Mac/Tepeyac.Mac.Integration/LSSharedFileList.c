@@ -1,7 +1,7 @@
 #include <CoreServices/CoreServices.h>
 
 void
-AddLoginExecPath(const char *cpath)
+InsertLoginItem(const char *cpath)
 {
 	LSSharedFileListRef items =
     LSSharedFileListCreate(kCFAllocatorDefault, kLSSharedFileListSessionLoginItems, NULL);

@@ -69,6 +69,7 @@
     <Compile Include="Tepeyac.UI.Cocoa\CocoaFiber.cs" />
     <Compile Include="Tepeyac.UI.Cocoa\CocoaAdapter.cs" />
     <Compile Include="Tepeyac.UI.Cocoa\Launcher.cs" />
+    <Compile Include="Tepeyac.Mac.Integration\LSSharedFileList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainMenu.xib" />
