@@ -32,6 +32,7 @@
     <CustomCommands>
       <CustomCommands>
         <Command type="BeforeBuild" command="xcodebuild -configuration ${ProjectConfigName}" workingdir="${ProjectDir}/Tepeyac.Mac.Integration/" />
+        <Command type="AfterBuild" command="cp Tepeyac.Mac.Integration/build/${ProjectConfigName}/libIntegration.dylib ${TargetDir}/Tepeyac.Mac.app/Contents/Resources" workingdir="${ProjectDir}" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
