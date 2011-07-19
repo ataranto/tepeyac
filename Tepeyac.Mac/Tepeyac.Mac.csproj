@@ -70,9 +70,19 @@
     <Compile Include="Tepeyac.UI.Cocoa\CocoaAdapter.cs" />
     <Compile Include="Tepeyac.UI.Cocoa\Launcher.cs" />
     <Compile Include="Tepeyac.Mac.Integration\LSSharedFileList.cs" />
+    <Compile Include="Tepeyac.UI.Cocoa\PreferencesWindow.cs">
+      <DependentUpon>PreferencesWindow.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Tepeyac.UI.Cocoa\PreferencesWindowController.cs">
+      <DependentUpon>PreferencesWindow.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Tepeyac.UI.Cocoa\PreferencesWindow.xib.designer.cs">
+      <DependentUpon>PreferencesWindow.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainMenu.xib" />
+    <Page Include="Tepeyac.UI.Cocoa\PreferencesWindow.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

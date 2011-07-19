@@ -16,6 +16,7 @@ namespace Tepeyac.UI.Cocoa
 			this.Rebind<ILauncher>().To<Launcher>().InSingletonScope();
 			
 			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayView>().InSingletonScope();
+			this.Bind<IPreferencesView>().To<PreferencesWindowController>();
 		}
 	}
 }

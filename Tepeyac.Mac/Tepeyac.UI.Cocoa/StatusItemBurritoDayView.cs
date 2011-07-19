@@ -57,6 +57,15 @@ namespace Tepeyac.UI.Cocoa
 			}
 		}
 		
+		#region IView
+		
+		void IView.Present()
+		{
+			
+		}
+		
+		#endregion
+		
 		#region IBurritoDayView
 		
 		event EventHandler IBurritoDayView.RefreshActivated
