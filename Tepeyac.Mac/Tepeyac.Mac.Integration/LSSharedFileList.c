@@ -1,3 +1,5 @@
+#include <CoreServices/CoreServices.h>
+
 void
 AddLoginExecPath(const char *cpath)
 {
@@ -12,9 +14,9 @@ AddLoginExecPath(const char *cpath)
 	CFStringRef path = CFStringCreateWithCString(kCFAllocatorDefault, cpath, kCFStringEncodingUTF8);
 	CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, path, kCFURLPOSIXPathStyle, false);	
 	LSSharedFileListItemRef item =
-    LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);
+    LSSharedFileListInsertItemURL(items, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);
 	
-	CFRelease(loginItems);
+	CFRelease(items);
 	CFRelease(path);
 	CFRelease(url);
 	if (item)

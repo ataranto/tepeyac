@@ -31,7 +31,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="BeforeBuild" command="xcodebuild" workingdir="${ProjectDir}/Tepeyac.Mac.Integration/framework/" />
+        <Command type="BeforeBuild" command="xcodebuild -configuration ${ProjectConfigName}" workingdir="${ProjectDir}/Tepeyac.Mac.Integration/" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
