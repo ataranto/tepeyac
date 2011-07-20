@@ -33,6 +33,8 @@
       <CustomCommands>
         <Command type="BeforeBuild" command="xcodebuild -configuration ${ProjectConfigName}" workingdir="${ProjectDir}/Tepeyac.Mac.Integration/" />
         <Command type="AfterBuild" command="cp Tepeyac.Mac.Integration/build/${ProjectConfigName}/libIntegration.dylib ${TargetDir}/Tepeyac.Mac.app/Contents/Resources" workingdir="${ProjectDir}" />
+        <Command type="AfterBuild" command="mkdir -p ${TargetDir}/Tepeyac.Mac.app/Contents/Frameworks  " workingdir="${ProjectDir}" />
+        <Command type="AfterBuild" command="cp -Rf ../ext/Sparkle.framework ${TargetDir}/Tepeyac.Mac.app/Contents/Frameworks/" workingdir="${ProjectDir}" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
