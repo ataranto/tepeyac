@@ -29,6 +29,7 @@ namespace Tepeyac.UI.Test
 			var state = BurritoDayState.Yes;
 			
 			this.mockModel.SetupGet(m => m.State).Returns(state);
+			this.mockView.SetupSet(m => m.Visible = true);
 			this.mockView.Setup(m => m.SetState(state));
 			this.mockModel.Raise(m => m.StateChanged += null, EventArgs.Empty);	
 		}
@@ -38,6 +39,13 @@ namespace Tepeyac.UI.Test
 		{
 			this.mockModel.Setup(m => m.Refresh());
 			this.mockView.Raise(m => m.RefreshActivated += null, EventArgs.Empty);	
+		}
+		
+		[Test]
+		public void TestViewDismissActivated()
+		{
+			this.mockView.SetupSet(m => m.Visible = false);
+			this.mockView.Raise(m => m.DismissActivated += null, EventArgs.Empty);
 		}
 	}
 }

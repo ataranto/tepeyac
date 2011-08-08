@@ -10,35 +10,37 @@ namespace Tepeyac.UI.Cocoa
 {
 	public class StatusItemBurritoDayView : IBurritoDayView, IUrlActivationView, IActivationView<IPreferencesView>
 	{
-		private readonly NSStatusItem si;
+		private NSStatusItem si;
 		private readonly ICollection<IDisposable> presenters;
 		
-		private readonly NSMenuItem RefreshMenuItem = new NSMenuItem("Refresh");
-		private readonly NSMenuItem LaunchMenuItem = new NSMenuItem("Launch Burrito Website");
-		private readonly NSMenuItem PreferencesMenuItem = new NSMenuItem("Preferences...");
-		private readonly NSMenuItem QuitMenuItem = new NSMenuItem("Quit Tepeyac");
+		private readonly NSMenu menu = new NSMenu();
+		private readonly NSMenuItem refreshMenuItem = new NSMenuItem("Refresh");
+		private readonly NSMenuItem launchMenuItem = new NSMenuItem("Launch Burrito Website");
+		private readonly NSMenuItem dismissMenuitem = new NSMenuItem("Dismiss");
+		private readonly NSMenuItem preferencesMenuItem = new NSMenuItem("Preferences...");
+		private readonly NSMenuItem quitMenuItem = new NSMenuItem("Quit Tepeyac");
 		
 		public StatusItemBurritoDayView (IKernel kernel)
 		{
-			this.LaunchMenuItem.Activated += delegate {
+			this.menu = new NSMenu();
+			
+			this.menu.AddItem(this.refreshMenuItem);
+			this.menu.AddItem(this.launchMenuItem);
+			this.menu.AddItem(NSMenuItem.SeparatorItem);
+			this.menu.AddItem(this.dismissMenuitem);
+			//this.Menu.AddItem(this.preferencesMenuItem);
+			this.menu.AddItem(NSMenuItem.SeparatorItem);
+			this.menu.AddItem(this.quitMenuItem);
+			
+			this.launchMenuItem.Activated += delegate {
 				var handler = this.urlActivated;
 				if (handler != null)
 				{
 					handler(this, "http://isitburritoday.com");
 				}
 			};
-			this.QuitMenuItem.Activated += (sender, e) => NSApplication.SharedApplication.Terminate(sender as NSObject);
-			
-			this.si = NSStatusBar.SystemStatusBar.CreateStatusItem(28);
-			this.si.HighlightMode = true;
-			this.si.Menu = new NSMenu();
-			
-			this.si.Menu.AddItem(this.RefreshMenuItem);
-			this.si.Menu.AddItem(this.LaunchMenuItem);
-			this.si.Menu.AddItem(NSMenuItem.SeparatorItem);
-			this.si.Menu.AddItem(this.PreferencesMenuItem);
-			this.si.Menu.AddItem(NSMenuItem.SeparatorItem);
-			this.si.Menu.AddItem(this.QuitMenuItem);
+			this.quitMenuItem.Activated += (sender, e) =>
+				NSApplication.SharedApplication.Terminate(sender as NSObject);
 			
 			var parameter = new ConstructorArgument("view", this);
 			this.presenters = new IDisposable[]
@@ -57,11 +59,31 @@ namespace Tepeyac.UI.Cocoa
 			}
 		}
 		
+		private void InstantiateStatusItem ()
+		{
+			this.si = NSStatusBar.SystemStatusBar.CreateStatusItem(28);
+			this.si.HighlightMode = true;
+			this.si.Menu = this.menu;
+		}
+		
 		#region IView
 		
-		void IView.Present()
+		bool IView.Visible
 		{
+			get { return this.si != null; }
 			
+			set
+			{
+				if (!value && this.si != null)
+				{
+					this.si.Dispose();
+					this.si = null;
+				}
+				else if (value && this.si == null)
+				{
+					this.InstantiateStatusItem();		
+				}
+			}
 		}
 		
 		#endregion
@@ -70,12 +92,23 @@ namespace Tepeyac.UI.Cocoa
 		
 		event EventHandler IBurritoDayView.RefreshActivated
 		{
-			add { this.RefreshMenuItem.Activated += value; }
-			remove { this.RefreshMenuItem.Activated -= value; }
+			add { this.refreshMenuItem.Activated += value; }
+			remove { this.refreshMenuItem.Activated -= value; }
+		}
+		
+		event EventHandler IBurritoDayView.DismissActivated
+		{
+			add { this.dismissMenuitem.Activated += value; }
+			remove { this.dismissMenuitem.Activated -= value; }
 		}
 		
 		void IBurritoDayView.SetState(BurritoDayState state)
 		{
+			if (this.si == null)
+			{
+				return;
+			}
+			
 			var name = state.ToString().ToLower();
 			var path = NSBundle.MainBundle.PathForResource(name, "png") ??
 				NSBundle.MainBundle.PathForResource("no", "png");
@@ -100,11 +133,10 @@ namespace Tepeyac.UI.Cocoa
 		
 		event EventHandler IActivationView<IPreferencesView>.Activated
 		{
-			add {  this.PreferencesMenuItem.Activated += value; }
-			remove { this.PreferencesMenuItem.Activated -= value; }
+			add {  this.preferencesMenuItem.Activated += value; }
+			remove { this.preferencesMenuItem.Activated -= value; }
 		}
 		
 		#endregion
 	}
 }
-

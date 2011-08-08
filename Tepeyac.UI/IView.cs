@@ -4,7 +4,7 @@ namespace Tepeyac.UI
 {
 	public interface IView : IDisposable
 	{
-		void Present();
+		bool Visible { get; set; }
 	}
 }
 

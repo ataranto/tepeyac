@@ -45,9 +45,10 @@ namespace Tepeyac.UI.Cocoa
 		
 		#region IView
 		
-		void IView.Present()
+		bool IView.Visible
 		{
-			this.Window.IsVisible = true;	
+			get { return this.Window.IsVisible; }
+			set { this.Window.IsVisible = value; }
 		}
 		
 		#endregion

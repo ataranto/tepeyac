@@ -11,19 +11,21 @@ namespace Tepeyac.UI
 		{
 			base.model.StateChanged += this.OnModelStateChanged;
 			base.view.RefreshActivated += this.OnViewRefreshActivated;
-			
-			this.ViewSetState();
+			base.view.DismissActivated += this.OnViewDismissActivated;
+
+			this.ViewSetState(base.model.State);
 		}
 		
 		public override void Dispose()
 		{
 			base.model.StateChanged -= this.OnModelStateChanged;
 			base.view.RefreshActivated -= this.OnViewRefreshActivated;
+			this.view.DismissActivated -= this.OnViewDismissActivated;
 		}
 		
 		private void OnModelStateChanged(object sender, EventArgs e)
 		{
-			this.ViewSetState();
+			this.ViewSetState (base.model.State);
 		}
 		
 		private void OnViewRefreshActivated(object sender, EventArgs e)
@@ -31,10 +33,18 @@ namespace Tepeyac.UI
 			base.model.Refresh();	
 		}
 		
-		private void ViewSetState()
+		private void OnViewDismissActivated(object sender, EventArgs e)
 		{
-			var state = base.model.State;
-			base.Invoke(() => base.view.SetState(state));
+			base.view.Visible = false;
+		}
+
+		private void ViewSetState (BurritoDayState state)
+		{
+			base.Invoke(() =>
+			{
+				base.view.Visible = true;
+				base.view.SetState(state);	
+			});
 		}
 	}
 }

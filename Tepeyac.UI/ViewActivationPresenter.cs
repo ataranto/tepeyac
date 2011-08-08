@@ -18,7 +18,7 @@ namespace Tepeyac.UI
 		
 		private void OnViewActivated(object sender, EventArgs e)
 		{
-			base.model.Get<T>().Present();	
+			base.model.Get<T>().Visible = true;
 		}
 	}
 }
