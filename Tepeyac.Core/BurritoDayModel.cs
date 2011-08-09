@@ -58,7 +58,15 @@ namespace Tepeyac.Core
 		public void Refresh()
 		{
 			this.timer.Enabled = false;
-			this.client.DownloadStringAsync(this.uri);
+			
+			try
+			{
+				this.client.CancelAsync();
+			}
+			finally
+			{
+				this.client.DownloadStringAsync(this.uri);
+			}
 		}
 		
 		private void OnClientCompleted(bool success, Exception error, string data)

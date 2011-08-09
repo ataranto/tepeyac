@@ -7,6 +7,7 @@ namespace Tepeyac.Core
 		event Action<bool, Exception, string> Completed;
 		
 		void DownloadStringAsync(Uri uri);
+		void CancelAsync();
 	}
 }
 
