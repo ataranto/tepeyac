@@ -63,6 +63,6 @@ Global
 		{C411407D-380C-4EDA-A27A-0A58FE2EA566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Tepeyac.iPhone\Tepeyac.iPhone.csproj
+		StartupItem = Tepeyac.Mac\Tepeyac.Mac.csproj
 	EndGlobalSection
 EndGlobal
