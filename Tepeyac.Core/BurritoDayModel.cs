@@ -22,6 +22,7 @@ namespace Tepeyac.Core
 		
 		private TimeSpan interval = TimeSpan.FromHours(1);
 		private BurritoDayState state = BurritoDayState.Unknown;
+		private Uri latitude = null;
 		
 		public BurritoDayModel(IWebClient client)
 		{
@@ -32,6 +33,11 @@ namespace Tepeyac.Core
 			this.timer.Elapsed += delegate { this.Refresh(); };
 
 			this.Refresh();
+		}
+		
+		public Uri Latitude
+		{
+			get { return this.latitude; }
 		}
 		
 		public BurritoDayState State
@@ -87,7 +93,18 @@ namespace Tepeyac.Core
 			var doc = new HtmlDocument();
 			doc.LoadHtml(data);
 			
-			var node =
+			// parse latitude uri
+			var node = doc.DocumentNode.SelectSingleNode("//iframe");
+			
+			if (node == null ||
+				!Uri.TryCreate(node.GetAttributeValue("src", null),
+					UriKind.Absolute, out this.latitude))
+			{
+				this.latitude = null;
+			}
+			
+			// parse burrito day state
+			node =
 				doc.DocumentNode.SelectSingleNode("//div[@id='hooray']") ??
 				doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
 			

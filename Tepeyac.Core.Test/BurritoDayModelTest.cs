@@ -56,6 +56,7 @@ namespace Tepeyac.Core.Test
 			}
 			
 			Assert.AreEqual(BurritoDayState.No, this.model.State);
+			Assert.AreEqual(null, this.model.Latitude);
 		}
 		
 		[Test]
@@ -68,6 +69,7 @@ namespace Tepeyac.Core.Test
 			}
 			
 			Assert.AreEqual(BurritoDayState.Tomorrow, this.model.State);
+			Assert.AreEqual(null, this.model.Latitude);
 		}
 		
 		[Test]
@@ -80,6 +82,9 @@ namespace Tepeyac.Core.Test
 			}
 			
 			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
+			
+			var uri = new Uri("http://www.google.com/latitude/apps/badge/api?user=797967215506697296&type=iframe&maptype=roadmap");
+			Assert.AreEqual(uri, this.model.Latitude);
 		}
 	}
 }

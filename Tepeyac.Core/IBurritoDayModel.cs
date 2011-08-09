@@ -7,6 +7,7 @@ namespace Tepeyac.Core
 		event EventHandler StateChanged;
 		
 		BurritoDayState State { get; }
+		Uri Latitude { get; }
 		
 		void Refresh();
 	}
