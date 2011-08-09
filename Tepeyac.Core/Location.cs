@@ -4,8 +4,20 @@ namespace Tepeyac.Core
 {
 	public class Location
 	{
-		public double Latitude { get; set; }
-		public double Longitute { get; set; }
+		public readonly double Latitude;
+		public readonly double Longitude;
+		
+		public Location(double latitude, double longitude)
+		{
+			this.Latitude = latitude;
+			this.Longitude = longitude;
+		}
+		
+		public override string ToString()
+		{
+			return String.Format("Latitude: {0}, Longitude: {1}",
+				this.Latitude, this.Longitude);	
+		}
 	}
 }
 

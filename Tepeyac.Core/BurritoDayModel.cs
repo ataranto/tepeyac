@@ -64,12 +64,17 @@ namespace Tepeyac.Core
 				doc.LoadHtml(data);
 				
 				var state = BurritoDayModel.GetState(doc);
-				var latitude = BurritoDayModel.GetLatitudeUri(doc);
-				
-				if (latitude != null)
+				Uri latitude;
+				if (state == BurritoDayState.Yes &&
+					BurritoDayModel.TryGetLatitudeUri(doc, out latitude))
 				{
 					data = this.client.DownloadString(latitude);
-					var location = BurritoDayModel.GetLocation(data);
+					Location location;
+					
+					if (BurritoDayModel.TryGetLocation(data, out location))
+					{
+						Console.WriteLine(location);
+					}
 				}
 			}
 			catch
@@ -90,7 +95,6 @@ namespace Tepeyac.Core
 			var node =
 				doc.DocumentNode.SelectSingleNode("//div[@id='hooray']") ??
 				doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
-			
 			if (node != null && !String.IsNullOrEmpty(node.InnerText))
 			{
 				var text = node.InnerText.ToLower();
@@ -107,26 +111,21 @@ namespace Tepeyac.Core
 			return BurritoDayState.Unknown;
 		}
 		
-		private static Uri GetLatitudeUri(HtmlDocument doc)
+		private static bool TryGetLatitudeUri(HtmlDocument doc, out Uri uri)
 		{
-			var node = doc.DocumentNode.SelectSingleNode("//iframe");
-			Uri uri = null;
+			uri = null;
 			
-			if (node != null)
-			{
+			var node = doc.DocumentNode.SelectSingleNode("//iframe");
+			return
+				node != null &&
 				Uri.TryCreate(node.GetAttributeValue("src", null),
 					UriKind.Absolute, out uri);
-			}
-			
-			return uri;
 		}
 		
 		private static Regex Regex = new Regex("\".*\"", RegexOptions.Compiled);
 		
-		private static Location GetLocation(string data)
+		private static bool TryGetLocation(string data, out Location location)
 		{
-			var location = new Location();
-			
 			foreach (var match in BurritoDayModel.Regex.Matches(data))
 			{
 				var center = HttpUtility.ParseQueryString(match.ToString())["center"];
@@ -138,15 +137,14 @@ namespace Tepeyac.Core
 						Double.TryParse(tokens[0], out latitude) &&
 						Double.TryParse(tokens[1], out longitude))
 					{
-						location.Latitude = latitude;
-						location.Longitute = longitude;
-						
-						break;
+						location = new Location(latitude, longitude);
+						return true;
 					}
 				}
 			}
 			
-			return location;
+			location = null;
+			return false;
 		}
 	}
 }
