@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Timers;
+using System.Web;
 using HtmlAgilityPack;
 using Retlang.Fibers;
 
@@ -17,7 +19,6 @@ namespace Tepeyac.Core
 		private readonly IWebClient client;
 		
 		private BurritoDayState state = BurritoDayState.Unknown;
-		private Uri latitude = null;
 		
 		public BurritoDayModel(IFiber fiber, IWebClient client)
 		{
@@ -26,11 +27,6 @@ namespace Tepeyac.Core
 			
 			this.fiber.ScheduleOnInterval(this.PollState, 0,
 				(long)this.interval.TotalMilliseconds);
-		}
-		
-		public Uri Latitude
-		{
-			get { return this.latitude; }
 		}
 		
 		public BurritoDayState State
@@ -68,20 +64,13 @@ namespace Tepeyac.Core
 				doc.LoadHtml(data);
 				
 				var state = BurritoDayModel.GetState(doc);
-				this.latitude = BurritoDayModel.GetLatitudeUri(doc);
+				var latitude = BurritoDayModel.GetLatitudeUri(doc);
 				
-				this.State = state;
-				
-				/*
-				if (state == BurritoDayState.Yes && this.latitude != null)
+				if (latitude != null)
 				{
-					this.fiber.Enqueue(this.PollLocation);
+					data = this.client.DownloadString(latitude);
+					var location = BurritoDayModel.GetLocation(data);
 				}
-				else
-				{
-					this.State = state;
-				}
-				*/
 			}
 			catch
 			{
@@ -131,6 +120,33 @@ namespace Tepeyac.Core
 			
 			return uri;
 		}
+		
+		private static Regex Regex = new Regex("\".*\"", RegexOptions.Compiled);
+		
+		private static Location GetLocation(string data)
+		{
+			var location = new Location();
+			
+			foreach (var match in BurritoDayModel.Regex.Matches(data))
+			{
+				var center = HttpUtility.ParseQueryString(match.ToString())["center"];
+				if (!String.IsNullOrEmpty(center))
+				{
+					double latitude, longitude;
+					var tokens = center.Split(',');
+					if (tokens.Length == 2 &&
+						Double.TryParse(tokens[0], out latitude) &&
+						Double.TryParse(tokens[1], out longitude))
+					{
+						location.Latitude = latitude;
+						location.Longitute = longitude;
+						
+						break;
+					}
+				}
+			}
+			
+			return location;
+		}
 	}
 }
-
