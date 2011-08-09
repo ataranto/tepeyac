@@ -6,6 +6,7 @@ using System;
 
 namespace Tepeyac.Core.Test
 {
+	/*
 	[TestFixture]
 	public class BurritoDayModelTest : MoqTestFixture
 	{
@@ -87,4 +88,5 @@ namespace Tepeyac.Core.Test
 			Assert.AreEqual(uri, this.model.Latitude);
 		}
 	}
+	*/
 }

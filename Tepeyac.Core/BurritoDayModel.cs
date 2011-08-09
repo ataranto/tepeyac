@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Timers;
 using HtmlAgilityPack;
+using Retlang.Fibers;
 
 namespace Tepeyac.Core
 {
@@ -9,30 +10,22 @@ namespace Tepeyac.Core
 	{
 		public event EventHandler StateChanged;
 		
-		private readonly IDictionary<string, BurritoDayState> keywords = new Dictionary<string, BurritoDayState>()
-		{
-			{ "no", BurritoDayState.No },
-			{ "yes", BurritoDayState.Yes },
-			{ "tomorrow", BurritoDayState.Tomorrow },
-		};
-		
+		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri uri = new Uri("http://isitburritoday.com");
-		private readonly Timer timer = new Timer();
+
+		private readonly IFiber fiber;
 		private readonly IWebClient client;
 		
-		private TimeSpan interval = TimeSpan.FromHours(1);
 		private BurritoDayState state = BurritoDayState.Unknown;
 		private Uri latitude = null;
 		
-		public BurritoDayModel(IWebClient client)
+		public BurritoDayModel(IFiber fiber, IWebClient client)
 		{
+			this.fiber = fiber;
 			this.client = client;
-			this.client.Completed += this.OnClientCompleted;
 			
-			this.timer.AutoReset = false;
-			this.timer.Elapsed += delegate { this.Refresh(); };
-
-			this.Refresh();
+			this.fiber.ScheduleOnInterval(this.PollState, 0,
+				(long)this.interval.TotalMilliseconds);
 		}
 		
 		public Uri Latitude
@@ -63,48 +56,49 @@ namespace Tepeyac.Core
 		
 		public void Refresh()
 		{
-			this.timer.Enabled = false;
-			
+			this.fiber.Enqueue(this.PollState);	
+		}
+		
+		private void PollState()
+		{
 			try
 			{
-				this.client.CancelAsync();
+				var data = this.client.DownloadString(this.uri);
+				var doc = new HtmlDocument();
+				doc.LoadHtml(data);
+				
+				var state = BurritoDayModel.GetState(doc);
+				this.latitude = BurritoDayModel.GetLatitudeUri(doc);
+				
+				this.State = state;
+				
+				/*
+				if (state == BurritoDayState.Yes && this.latitude != null)
+				{
+					this.fiber.Enqueue(this.PollLocation);
+				}
+				else
+				{
+					this.State = state;
+				}
+				*/
 			}
-			finally
+			catch
 			{
-				this.client.DownloadStringAsync(this.uri);
+				this.State = BurritoDayState.Unknown;
 			}
 		}
 		
-		private void OnClientCompleted(bool success, Exception error, string data)
+		private static IDictionary<string, BurritoDayState> StateKeywords = new Dictionary<string, BurritoDayState>()
 		{
-			try
-			{
-				this.State = this.GetState(data);
-			}
-			finally
-			{
-				this.timer.Interval = this.interval.TotalMilliseconds;
-				timer.Enabled = true;
-			}
-		}
+			{ "no", BurritoDayState.No },
+			{ "yes", BurritoDayState.Yes },
+			{ "tomorrow", BurritoDayState.Tomorrow },
+		};
 			
-		private BurritoDayState GetState(string data)
+		private static BurritoDayState GetState(HtmlDocument doc)
 		{
-			var doc = new HtmlDocument();
-			doc.LoadHtml(data);
-			
-			// parse latitude uri
-			var node = doc.DocumentNode.SelectSingleNode("//iframe");
-			
-			if (node == null ||
-				!Uri.TryCreate(node.GetAttributeValue("src", null),
-					UriKind.Absolute, out this.latitude))
-			{
-				this.latitude = null;
-			}
-			
-			// parse burrito day state
-			node =
+			var node =
 				doc.DocumentNode.SelectSingleNode("//div[@id='hooray']") ??
 				doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
 			
@@ -112,7 +106,7 @@ namespace Tepeyac.Core
 			{
 				var text = node.InnerText.ToLower();
 				
-				foreach (var pair in this.keywords)
+				foreach (var pair in BurritoDayModel.StateKeywords)
 				{
 					if (text.Contains(pair.Key))
 					{
@@ -122,6 +116,20 @@ namespace Tepeyac.Core
 			}
 			
 			return BurritoDayState.Unknown;
+		}
+		
+		private static Uri GetLatitudeUri(HtmlDocument doc)
+		{
+			var node = doc.DocumentNode.SelectSingleNode("//iframe");
+			Uri uri = null;
+			
+			if (node != null)
+			{
+				Uri.TryCreate(node.GetAttributeValue("src", null),
+					UriKind.Absolute, out uri);
+			}
+			
+			return uri;
 		}
 	}
 }
