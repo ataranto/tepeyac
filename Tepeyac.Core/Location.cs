@@ -15,8 +15,7 @@ namespace Tepeyac.Core
 		
 		public override string ToString()
 		{
-			return String.Format("Latitude: {0}, Longitude: {1}",
-				this.Latitude, this.Longitude);	
+			return String.Format("{0},{1}", this.Latitude, this.Longitude);	
 		}
 	}
 }

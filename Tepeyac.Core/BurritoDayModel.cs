@@ -5,6 +5,8 @@ using System.Timers;
 using System.Web;
 using HtmlAgilityPack;
 using Retlang.Fibers;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Tepeyac.Core
 {
@@ -14,6 +16,7 @@ namespace Tepeyac.Core
 		
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri uri = new Uri("http://isitburritoday.com");
+		private readonly string api = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins={0}&sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA";
 
 		private readonly IFiber fiber;
 		private readonly IWebClient client;
@@ -73,7 +76,10 @@ namespace Tepeyac.Core
 					
 					if (BurritoDayModel.TryGetLocation(data, out location))
 					{
-						Console.WriteLine(location);
+						var uri = new Uri(String.Format(this.api, location));
+						data = this.client.DownloadString(uri);
+						
+						Console.WriteLine(data);
 					}
 				}
 			}
@@ -82,7 +88,7 @@ namespace Tepeyac.Core
 				this.State = BurritoDayState.Unknown;
 			}
 		}
-		
+
 		private static IDictionary<string, BurritoDayState> StateKeywords = new Dictionary<string, BurritoDayState>()
 		{
 			{ "no", BurritoDayState.No },
