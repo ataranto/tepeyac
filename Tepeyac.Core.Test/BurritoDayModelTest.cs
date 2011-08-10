@@ -3,90 +3,91 @@ using Moq;
 using NUnit.Framework;
 using Tepeyac.Test;
 using System;
+using Retlang.Fibers;
+using System.Collections.Generic;
 
 namespace Tepeyac.Core.Test
 {
-	/*
 	[TestFixture]
 	public class BurritoDayModelTest : MoqTestFixture
 	{
+		private Queue<string> sequence;
+		
+		private StubFiber fiber;
 		private Mock<IWebClient> mockClient;
 		private IBurritoDayModel model;
 		
 		protected override void SetUp()
 		{
+			this.fiber = new StubFiber();
 			this.mockClient = base.CreateMock<IWebClient>();
-			this.model = new BurritoDayModel(this.mockClient.Object);
-		}
-		
-		[Test]
-		public void TestInitialState()
-		{
-			Assert.AreEqual(BurritoDayState.Unknown, this.model.State);
-		}
-		
-		[Test]
-		public void TestRefresh()
-		{
-			this.mockClient.Setup(m => m.DownloadStringAsync(It.IsAny<Uri>()));
-			this.model.Refresh();
-		}
-		
-		// XXX: nunit isn't picking these up, not sure why
-		[TestCase("Tepeyac.Core.Test.no.html", BurritoDayState.No)]
-		[TestCase("Tepeyac.Core.Test.tomorrow.html", BurritoDayState.Tomorrow)]
-		[TestCase("Tepeyac.Core.Test.yes.html", BurritoDayState.Yes)]
-		public void TestParse(string resource, BurritoDayState state)
-		{
-			using (var stream = base.GetType().Assembly.GetManifestResourceStream(resource))
-			using (var reader = new StreamReader(stream))
-			{
-				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
-			}
+			this.model = new BurritoDayModel(this.fiber, this.mockClient.Object);
 			
-			Assert.AreEqual(state, this.model.State);
+			this.sequence = new Queue<string>();
+			this.mockClient.Setup(m => m.DownloadString(It.IsAny<Uri>())).
+				Returns(() => this.GetResource(this.sequence.Dequeue()));
 		}
 		
 		[Test]
 		public void TestNo()
 		{
-			using (var stream = base.GetType().Assembly.GetManifestResourceStream("Tepeyac.Core.Test.no.html"))
-			using (var reader = new StreamReader(stream))
-			{
-				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
-			}
+			this.sequence.Enqueue("Tepeyac.Core.Test.no.html");
+			this.fiber.ExecuteAllScheduled();
 			
 			Assert.AreEqual(BurritoDayState.No, this.model.State);
-			Assert.AreEqual(null, this.model.Latitude);
 		}
 		
 		[Test]
 		public void TestTomorrow()
 		{
-			using (var stream = base.GetType().Assembly.GetManifestResourceStream("Tepeyac.Core.Test.tomorrow.html"))
-			using (var reader = new StreamReader(stream))
-			{
-				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
-			}
+			this.sequence.Enqueue("Tepeyac.Core.Test.tomorrow.html");
+			this.fiber.ExecuteAllScheduled();
 			
 			Assert.AreEqual(BurritoDayState.Tomorrow, this.model.State);
-			Assert.AreEqual(null, this.model.Latitude);
 		}
 		
 		[Test]
 		public void TestYes()
 		{
-			using (var stream = base.GetType().Assembly.GetManifestResourceStream("Tepeyac.Core.Test.yes.html"))
-			using (var reader = new StreamReader(stream))
-			{
-				this.mockClient.Raise(m => m.Completed += null, true, null, reader.ReadToEnd());
-			}
+			this.sequence.Enqueue("Tepeyac.Core.Test.yes.html");
+			this.fiber.ExecuteAllScheduled();
 			
 			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
+		}
+		
+		[Test]
+		public void TestInTransit()
+		{
+			this.sequence.Enqueue("Tepeyac.Core.Test.yes.html");
+			this.sequence.Enqueue("Tepeyac.Core.Test.harbor.html");
+			this.sequence.Enqueue("Tepeyac.Core.Test.harbor.xml");
+			this.fiber.ExecuteAllScheduled();
 			
-			var uri = new Uri("http://www.google.com/latitude/apps/badge/api?user=797967215506697296&type=iframe&maptype=roadmap");
-			Assert.AreEqual(uri, this.model.Latitude);
+			Assert.AreEqual(BurritoDayState.Transit, this.model.State);
+		}
+		
+		[Test]
+		public void TestArrived()
+		{
+			this.sequence.Enqueue("Tepeyac.Core.Test.yes.html");
+			this.sequence.Enqueue("Tepeyac.Core.Test.arrived.html");
+			this.sequence.Enqueue("Tepeyac.Core.Test.arrived.xml");
+			this.fiber.ExecuteAllScheduled();
+			
+			Assert.AreEqual(BurritoDayState.Arrived, this.model.State);
+		}
+		
+		private string GetResource(string resource)
+		{
+			using (var stream = base.GetType().Assembly.GetManifestResourceStream(resource))
+			using (var reader = new StreamReader(stream))
+			{
+				return reader.ReadToEnd();
+				/*
+				this.mockClient.Setup(m => m.DownloadString(It.IsAny<Uri>())).
+					Returns(reader.ReadToEnd());
+				*/
+			}
 		}
 	}
-	*/
 }

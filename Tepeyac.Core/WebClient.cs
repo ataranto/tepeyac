@@ -9,5 +9,17 @@ namespace Tepeyac.Core
 		{
 
 		}
+		
+		public new string DownloadString(Uri uri)
+		{
+			try
+			{
+				return base.DownloadString(uri);
+			}
+			catch
+			{
+				return null;	
+			}
+		}
 	}
 }

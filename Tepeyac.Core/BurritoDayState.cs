@@ -7,6 +7,8 @@ namespace Tepeyac.Core
 		Yes,
 		No,
 		Tomorrow,
+		Transit,
+		Arrived
 	}
 }
 

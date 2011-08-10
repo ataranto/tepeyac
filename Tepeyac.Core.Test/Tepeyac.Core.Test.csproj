@@ -43,6 +43,10 @@
       <HintPath>..\ext\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="Retlang, Version=1.0.6.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ext\Retlang.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac.Core\Tepeyac.Core.csproj">
@@ -63,6 +67,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\data\tomorrow.html">
       <Link>tomorrow.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\data\arrived.html">
+      <Link>arrived.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\data\harbor.html">
+      <Link>harbor.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\data\latitude.html">
+      <Link>latitude.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\data\arrived.xml">
+      <Link>arrived.xml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\data\harbor.xml">
+      <Link>harbor.xml</Link>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Timers;
 using System.Web;
+using System.Xml;
 using HtmlAgilityPack;
 using Retlang.Fibers;
-using System.Text;
-using System.Security.Cryptography;
 
 namespace Tepeyac.Core
 {
@@ -16,7 +14,7 @@ namespace Tepeyac.Core
 		
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri uri = new Uri("http://isitburritoday.com");
-		private readonly string api = "http://maps.googleapis.com/maps/api/distancematrix/xml?origins={0}&sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA";
+		private readonly string api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA&origins=";
 
 		private readonly IFiber fiber;
 		private readonly IWebClient client;
@@ -60,33 +58,43 @@ namespace Tepeyac.Core
 		
 		private void PollState()
 		{
-			try
+			var data = this.client.DownloadString(this.uri);
+			var doc = new HtmlDocument();
+			doc.LoadHtml(data);
+			
+			BurritoDayState state;
+			if (!BurritoDayModel.TryGetState(doc, out state))
 			{
-				var data = this.client.DownloadString(this.uri);
-				var doc = new HtmlDocument();
-				doc.LoadHtml(data);
+				this.State = BurritoDayState.Unknown;
+				return;
+			}
+			
+			Uri uri;
+			if (state == BurritoDayState.Yes &&
+				BurritoDayModel.TryGetLatitudeUri(doc, out uri))
+			{
+				data = this.client.DownloadString(uri);
+				double latitude, longitude;
 				
-				var state = BurritoDayModel.GetState(doc);
-				Uri latitude;
-				if (state == BurritoDayState.Yes &&
-					BurritoDayModel.TryGetLatitudeUri(doc, out latitude))
+				if (BurritoDayModel.TryGetLocation(data, out latitude, out longitude))
 				{
-					data = this.client.DownloadString(latitude);
-					Location location;
+					uri = new Uri(this.api + latitude + "," + longitude);
+					data = this.client.DownloadString(uri);
 					
-					if (BurritoDayModel.TryGetLocation(data, out location))
+					Distance distance;
+					var xml = new XmlDocument();
+					xml.LoadXml(data);
+					
+					if (BurritoDayModel.TryGetDistance(xml, out distance))
 					{
-						var uri = new Uri(String.Format(this.api, location));
-						data = this.client.DownloadString(uri);
-						
-						Console.WriteLine(data);
+						state = distance.Duration < TimeSpan.FromMinutes(5) ?
+							BurritoDayState.Arrived :
+							BurritoDayState.Transit;
 					}
 				}
 			}
-			catch
-			{
-				this.State = BurritoDayState.Unknown;
-			}
+			
+			this.State = state;
 		}
 
 		private static IDictionary<string, BurritoDayState> StateKeywords = new Dictionary<string, BurritoDayState>()
@@ -95,8 +103,7 @@ namespace Tepeyac.Core
 			{ "yes", BurritoDayState.Yes },
 			{ "tomorrow", BurritoDayState.Tomorrow },
 		};
-			
-		private static BurritoDayState GetState(HtmlDocument doc)
+		private static bool TryGetState(HtmlDocument doc, out BurritoDayState state)
 		{
 			var node =
 				doc.DocumentNode.SelectSingleNode("//div[@id='hooray']") ??
@@ -109,12 +116,14 @@ namespace Tepeyac.Core
 				{
 					if (text.Contains(pair.Key))
 					{
-						return pair.Value;	
+						state = pair.Value;	
+						return true;
 					}
 				}
 			}
-			
-			return BurritoDayState.Unknown;
+
+			state = BurritoDayState.Unknown;
+			return false;
 		}
 		
 		private static bool TryGetLatitudeUri(HtmlDocument doc, out Uri uri)
@@ -129,28 +138,56 @@ namespace Tepeyac.Core
 		}
 		
 		private static Regex Regex = new Regex("\".*\"", RegexOptions.Compiled);
-		
-		private static bool TryGetLocation(string data, out Location location)
+		private static bool TryGetLocation(string data,
+			out double latitude, out double longitude)
 		{
 			foreach (var match in BurritoDayModel.Regex.Matches(data))
 			{
 				var center = HttpUtility.ParseQueryString(match.ToString())["center"];
 				if (!String.IsNullOrEmpty(center))
 				{
-					double latitude, longitude;
 					var tokens = center.Split(',');
 					if (tokens.Length == 2 &&
-						Double.TryParse(tokens[0], out latitude) &&
-						Double.TryParse(tokens[1], out longitude))
+						double.TryParse(tokens[0], out latitude) &&
+						double.TryParse(tokens[1], out longitude))
 					{
-						location = new Location(latitude, longitude);
 						return true;
 					}
 				}
 			}
 			
-			location = null;
+			latitude = longitude = default(double);
 			return false;
+		}
+		
+		private static bool TryGetDistance(XmlDocument doc, out Distance distance)
+		{
+			distance = new Distance();
+			
+			var node = doc.SelectSingleNode("//origin_address");
+			if (node != null && !String.IsNullOrEmpty(node.InnerText))
+			{
+				distance.LocationDescription = node.InnerText;
+			}
+			
+			node = doc.SelectSingleNode("//duration/value");
+			double seconds;
+			if (node != null && !String.IsNullOrEmpty(node.InnerText) &&
+				double.TryParse(node.InnerText, out seconds))
+			{
+				distance.Duration = TimeSpan.FromSeconds(seconds);
+			}
+			
+			node = doc.SelectSingleNode("//distance/value");
+			ulong meters;
+			if (node != null && !String.IsNullOrEmpty(node.InnerText) &&
+				ulong.TryParse(node.InnerText, out meters))
+			{
+				distance.Meters = meters;
+			}
+
+			return !String.IsNullOrEmpty(distance.LocationDescription) &&
+				(distance.Duration > TimeSpan.Zero || distance.Meters > 0);
 		}
 	}
 }
