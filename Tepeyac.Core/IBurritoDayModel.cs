@@ -4,9 +4,11 @@ namespace Tepeyac.Core
 {
 	public interface IBurritoDayModel
 	{
-		event EventHandler StateChanged;
+		event EventHandler Changed;
 		
 		BurritoDayState State { get; }
+		TimeSpan Duration { get; }
+		string Location { get; }
 		
 		void Refresh();
 	}

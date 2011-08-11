@@ -24,14 +24,14 @@ namespace Tepeyac.UI.Test
 		}
 		
 		[Test]
-		public void TestModelStateChanged()
+		public void TestModelChanged()
 		{
 			var state = BurritoDayState.Yes;
 			
 			this.mockModel.SetupGet(m => m.State).Returns(state);
 			this.mockView.SetupSet(m => m.Visible = true);
 			this.mockView.Setup(m => m.SetState(state));
-			this.mockModel.Raise(m => m.StateChanged += null, EventArgs.Empty);	
+			this.mockModel.Raise(m => m.Changed += null, EventArgs.Empty);	
 		}
 		
 		[Test]

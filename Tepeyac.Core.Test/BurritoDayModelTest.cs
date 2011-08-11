@@ -48,6 +48,8 @@ namespace Tepeyac.Core.Test
 			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.Unknown, this.model.State);
+			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
+			Assert.AreEqual(null, this.model.Location);
 		}
 		
 		[Test]
@@ -57,6 +59,8 @@ namespace Tepeyac.Core.Test
 			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.No, this.model.State);
+			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
+			Assert.AreEqual(null, this.model.Location);
 		}
 		
 		[Test]
@@ -66,6 +70,8 @@ namespace Tepeyac.Core.Test
 			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.Tomorrow, this.model.State);
+			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
+			Assert.AreEqual(null, this.model.Location);
 		}
 		
 		[Test]
@@ -75,6 +81,8 @@ namespace Tepeyac.Core.Test
 			this.ExecuteAllScheduled(2);
 			
 			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
+			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
+			Assert.AreEqual(null, this.model.Location);
 		}
 		
 		[Test]
@@ -86,6 +94,8 @@ namespace Tepeyac.Core.Test
 			this.ExecuteAllScheduled(2);
 			
 			Assert.AreEqual(BurritoDayState.Transit, this.model.State);
+			Assert.AreEqual(TimeSpan.FromSeconds(2027), this.model.Duration);
+			Assert.AreEqual("Bayshore Fwy, Belmont, CA 94002, USA", this.model.Location);
 		}
 		
 		[Test]
@@ -100,6 +110,8 @@ namespace Tepeyac.Core.Test
 			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.Arrived, this.model.State);
+			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
+			Assert.AreEqual(null, this.model.Location);
 		}
 		
 		private void ExecuteAllScheduled(int count)

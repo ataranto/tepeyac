@@ -9,7 +9,7 @@ namespace Tepeyac.UI
 		public BurritoDayPresenter(IBurritoDayModel model, IBurritoDayView view, [GuiFiber] IFiber guiFiber)
 			: base(model, view, guiFiber)
 		{
-			base.model.StateChanged += this.OnModelStateChanged;
+			base.model.Changed += this.OnModelChanged;
 			base.view.RefreshActivated += this.OnViewRefreshActivated;
 			base.view.DismissActivated += this.OnViewDismissActivated;
 
@@ -18,12 +18,12 @@ namespace Tepeyac.UI
 		
 		public override void Dispose()
 		{
-			base.model.StateChanged -= this.OnModelStateChanged;
+			base.model.Changed -= this.OnModelChanged;
 			base.view.RefreshActivated -= this.OnViewRefreshActivated;
 			this.view.DismissActivated -= this.OnViewDismissActivated;
 		}
 		
-		private void OnModelStateChanged(object sender, EventArgs e)
+		private void OnModelChanged(object sender, EventArgs e)
 		{
 			this.ViewSetState (base.model.State);
 		}

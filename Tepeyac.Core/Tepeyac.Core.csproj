@@ -40,7 +40,6 @@
     <Compile Include="IWebClient.cs" />
     <Compile Include="WebClient.cs" />
     <Compile Include="Executor.cs" />
-    <Compile Include="Distance.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">

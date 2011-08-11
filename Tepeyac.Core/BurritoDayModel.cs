@@ -10,7 +10,7 @@ namespace Tepeyac.Core
 {
 	public class BurritoDayModel : IBurritoDayModel
 	{
-		public event EventHandler StateChanged;
+		public event EventHandler Changed;
 		
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri burrito_day_uri = new Uri("http://isitburritoday.com");
@@ -21,6 +21,8 @@ namespace Tepeyac.Core
 		private readonly IWebClient client;
 		
 		private BurritoDayState state = BurritoDayState.Unknown;
+		private TimeSpan duration = TimeSpan.Zero;
+		private string location = null;
 		private IDisposable location_scheduled = null;
 		
 		public BurritoDayModel(IFiber fiber, IWebClient client)
@@ -38,19 +40,35 @@ namespace Tepeyac.Core
 			
 			private set
 			{
-				if (this.state == value)
+				if (value != BurritoDayState.Transit)
 				{
-					return;
+					this.duration = TimeSpan.Zero;
+					this.location = null;
+					
+					if (value == this.state)
+					{
+						return;
+					}
 				}
 
 				this.state = value;
 				
-				var handler = this.StateChanged;
+				var handler = this.Changed;
 				if (handler != null)
 				{
 					handler(this, EventArgs.Empty);
 				}
 			}
+		}
+		
+		public TimeSpan Duration
+		{
+			get { return this.duration; }	
+		}
+		
+		public string Location
+		{
+			get { return this.location; }	
 		}
 		
 		public void Refresh()
@@ -91,11 +109,16 @@ namespace Tepeyac.Core
 				var uri = new Uri(this.distance_api + latitude + "," + longitude);
 				data = this.client.Download(uri);
 			
-				Distance distance;
-				if (BurritoDayModel.TryParseDistance(data, out distance))
+				TimeSpan new_duration;
+				string new_location;
+				
+				if (BurritoDayModel.TryParseDistance(data, out new_duration, out new_location))
 				{	
-					if (distance.Duration > TimeSpan.FromMinutes(5))
+					if (new_duration > TimeSpan.FromMinutes(5))
 					{
+						this.duration = new_duration;
+						this.location = new_location;
+						
 						new_state = BurritoDayState.Transit;
 						this.StartLocationPolling(TimeSpan.FromMinutes(2));
 					}
@@ -104,7 +127,7 @@ namespace Tepeyac.Core
 						new_state = BurritoDayState.Arrived;
 						this.StopLocationPolling();
 						
-						// for a transition out of the Arrived state
+						// force a transition out of the Arrived state
 						// around midnight in case of back to back
 						// burrito days. a delicious special case.
 						this.fiber.Schedule(() =>
@@ -197,36 +220,26 @@ namespace Tepeyac.Core
 			return false;
 		}
 		
-		private static bool TryParseDistance(string data, out Distance distance)
+		private static bool TryParseDistance(string data,
+			out TimeSpan duration, out string location)
 		{
-			distance = new Distance();
 			var doc = new XmlDocument();
 			doc.LoadXml(data ?? String.Empty);
 			
-			var node = doc.SelectSingleNode("//origin_address");
-			if (node != null && !String.IsNullOrEmpty(node.InnerText))
-			{
-				distance.LocationDescription = node.InnerText;
-			}
-			
-			node = doc.SelectSingleNode("//duration/value");
+			var node = doc.SelectSingleNode("//duration/value");
 			double seconds;
-			if (node != null && !String.IsNullOrEmpty(node.InnerText) &&
-				double.TryParse(node.InnerText, out seconds))
-			{
-				distance.Duration = TimeSpan.FromSeconds(seconds);
-			}
+			duration = node != null && double.TryParse(node.InnerText, out seconds) ?
+				TimeSpan.FromSeconds(seconds) :
+				TimeSpan.Zero;
 			
-			node = doc.SelectSingleNode("//distance/value");
-			ulong meters;
-			if (node != null && !String.IsNullOrEmpty(node.InnerText) &&
-				ulong.TryParse(node.InnerText, out meters))
-			{
-				distance.Meters = meters;
-			}
+			node = doc.SelectSingleNode("//origin_address");
+			location = node != null ?
+				node.InnerText :
+				null;
 
-			return !String.IsNullOrEmpty(distance.LocationDescription) &&
-				(distance.Duration > TimeSpan.Zero || distance.Meters > 0);
+			return
+				duration > TimeSpan.Zero &&
+				!String.IsNullOrEmpty(location);
 		}
 	}
 }
