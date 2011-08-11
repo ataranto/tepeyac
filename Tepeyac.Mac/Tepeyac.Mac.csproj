@@ -114,6 +114,12 @@
       <Link>yes.png</Link>
     </Content>
     <Content Include="tepeyac.icns" />
+    <Content Include="..\res\arrived.png">
+      <Link>arrived.png</Link>
+    </Content>
+    <Content Include="..\res\transit.png">
+      <Link>transit.png</Link>
+    </Content>
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
