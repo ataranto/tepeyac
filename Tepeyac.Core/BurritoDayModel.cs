@@ -48,13 +48,13 @@ namespace Tepeyac.Core
 			{
 				if (value != BurritoDayState.Transit)
 				{
-					this.duration = TimeSpan.Zero;
-					this.location = null;
-					
 					if (value == this.state)
 					{
 						return;
 					}
+					
+					this.duration = TimeSpan.Zero;
+					this.location = null;
 				}
 				
 				lock (this.sync)
