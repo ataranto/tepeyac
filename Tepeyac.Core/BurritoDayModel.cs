@@ -13,13 +13,15 @@ namespace Tepeyac.Core
 		public event EventHandler StateChanged;
 		
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
-		private readonly Uri uri = new Uri("http://isitburritoday.com");
+		private readonly Uri burrito_day_uri = new Uri("http://isitburritoday.com");
 		private readonly string api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA&origins=";
 
 		private readonly IFiber fiber;
 		private readonly IWebClient client;
 		
 		private BurritoDayState state = BurritoDayState.Unknown;
+		private Uri latitude_uri = null;
+		private IDisposable location_scheduled = null;
 		
 		public BurritoDayModel(IFiber fiber, IWebClient client)
 		{
@@ -58,17 +60,44 @@ namespace Tepeyac.Core
 		
 		private void PollState()
 		{
-			var data = this.client.DownloadString(this.uri);
+			// load burrito website html
+			var data = this.client.DownloadString(this.burrito_day_uri);
 			var doc = new HtmlDocument();
 			doc.LoadHtml(data ?? String.Empty);
 			
+			// parse latitude url
+			BurritoDayModel.TryGetLatitudeUri(doc, out this.latitude_uri);
+			
+			// parse day
 			BurritoDayState state;
 			if (!BurritoDayModel.TryGetState(doc, out state))
 			{
-				this.State = BurritoDayState.Unknown;
-				return;
+				state = BurritoDayState.Unknown;
 			}
 			
+			if (state == BurritoDayState.Yes &&
+				this.location_scheduled == null)
+			{
+				// hoorj, start polling for location updates
+				this.location_scheduled =
+					this.fiber.ScheduleOnInterval(this.PollLocation, 0,
+						(long)TimeSpan.FromMinutes(10).TotalMilliseconds);
+
+				return;
+			}
+
+			// stop polling for location updates
+			using (this.location_scheduled)
+			{
+				this.location_scheduled = null;
+			}
+			
+			this.State = state;
+		}
+		
+		private void PollLocation()
+		{
+			/*
 			Uri uri;
 			if (state == BurritoDayState.Yes &&
 				BurritoDayModel.TryGetLatitudeUri(doc, out uri))
@@ -95,6 +124,7 @@ namespace Tepeyac.Core
 			}
 			
 			this.State = state;
+			*/
 		}
 
 		private static IDictionary<string, BurritoDayState> StateKeywords = new Dictionary<string, BurritoDayState>()
