@@ -30,7 +30,7 @@ namespace Tepeyac.UI.Test
 			
 			this.mockModel.SetupGet(m => m.State).Returns(state);
 			this.mockView.SetupSet(m => m.Visible = true);
-			this.mockView.Setup(m => m.SetState(state));
+			this.mockView.Setup(m => m.SetState(state, It.IsAny<string>()));
 			this.mockModel.Raise(m => m.Changed += null, EventArgs.Empty);	
 		}
 		

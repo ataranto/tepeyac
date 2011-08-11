@@ -102,7 +102,7 @@ namespace Tepeyac.UI.Cocoa
 			remove { this.dismissMenuitem.Activated -= value; }
 		}
 		
-		void IBurritoDayView.SetState(BurritoDayState state)
+		void IBurritoDayView.SetState(BurritoDayState state, string description)
 		{
 			if (this.si == null)
 			{
@@ -114,6 +114,7 @@ namespace Tepeyac.UI.Cocoa
 				NSBundle.MainBundle.PathForResource("no", "png");
 
 			this.si.Image = new NSImage(path);
+			this.si.ToolTip = description;
 		}
 		
 		#endregion

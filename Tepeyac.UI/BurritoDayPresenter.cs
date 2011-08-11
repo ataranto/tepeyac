@@ -40,11 +40,33 @@ namespace Tepeyac.UI
 
 		private void ViewSetState (BurritoDayState state)
 		{
+			var description = this.GetDescription(state);
+			
 			base.Invoke(() =>
 			{
 				base.view.Visible = true;
-				base.view.SetState(state);	
+				base.view.SetState(state, description);	
 			});
+		}
+		
+		private string GetDescription(BurritoDayState state)
+		{
+			switch (state)
+			{
+				case BurritoDayState.No:
+					return "Today is not burrito day";
+				case BurritoDayState.Tomorrow:
+					return "Tomorrow is burrito day";
+				case BurritoDayState.Yes:
+					return "Today is burrito day";
+				case BurritoDayState.Transit:
+					return String.Format("Burritos are {0} minutes away",
+						base.model.Duration.TotalMinutes);
+				case BurritoDayState.Arrived:
+					return "Burritos have arrived";
+				default:
+					return "Unable to determine burrito status";
+			}
 		}
 	}
 }

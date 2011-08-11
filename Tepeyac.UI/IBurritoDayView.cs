@@ -8,6 +8,6 @@ namespace Tepeyac.UI
 		event EventHandler RefreshActivated;
 		event EventHandler DismissActivated;
 		
-		void SetState(BurritoDayState state);
+		void SetState(BurritoDayState state, string description);
 	}
 }
