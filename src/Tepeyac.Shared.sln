@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac", "Tepeyac\Tepeyac.csproj", "{41CDE100-09CE-4FED-ADF9-88D909A8930E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Debug|x86.Build.0 = Debug|Any CPU
+		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Release|x86.ActiveCfg = Release|Any CPU
+		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Tepeyac\Tepeyac.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$1.ResourceNamePolicy = FileFormatDefault
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{41CDE100-09CE-4FED-ADF9-88D909A8930E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tepeyac</RootNamespace>
+    <AssemblyName>Tepeyac</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Retlang, Version=1.0.6.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ext\Retlang.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ext\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ext\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\BurritoDayState.cs" />
+    <Compile Include="Core\BurritoDayModel.cs" />
+    <Compile Include="Core\Executor.cs" />
+    <Compile Include="Core\IBurritoDayModel.cs" />
+    <Compile Include="Core\IPlatform.cs" />
+    <Compile Include="Core\IWebClient.cs" />
+    <Compile Include="Core\Module.cs" />
+    <Compile Include="Core\Platform.cs" />
+    <Compile Include="Core\WebClient.cs" />
+    <Compile Include="UI\BurritoDayPresenter.cs" />
+    <Compile Include="UI\GuiFiberAttribute.cs" />
+    <Compile Include="UI\GuiPresenter.cs" />
+    <Compile Include="UI\IActivationView.cs" />
+    <Compile Include="UI\IBurritoDayView.cs" />
+    <Compile Include="UI\ILauncher.cs" />
+    <Compile Include="UI\IPreferencesView.cs" />
+    <Compile Include="UI\IToolKit.cs" />
+    <Compile Include="UI\IUrlActivationView.cs" />
+    <Compile Include="UI\IView.cs" />
+    <Compile Include="UI\Launcher.cs" />
+    <Compile Include="UI\MainPresenter.cs" />
+    <Compile Include="UI\Module.cs" />
+    <Compile Include="UI\Presenter.cs" />
+    <Compile Include="UI\UrlActivationPresenter.cs" />
+    <Compile Include="UI\ViewActivationPresenter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\Tepeyac.Core.csproj" />
+  </ItemGroup>
+</Project>
