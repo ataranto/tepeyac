@@ -1,14 +1,14 @@
 using System;
+
 namespace Tepeyac.Core
 {
 	public enum BurritoDayState
 	{
 		Unknown,
-		Yes,
 		No,
 		Tomorrow,
+		Yes,
 		Transit,
 		Arrived
 	}
 }
-

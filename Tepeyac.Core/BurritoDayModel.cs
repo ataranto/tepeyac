@@ -60,7 +60,7 @@ namespace Tepeyac.Core
 		{
 			var data = this.client.DownloadString(this.uri);
 			var doc = new HtmlDocument();
-			doc.LoadHtml(data);
+			doc.LoadHtml(data ?? String.Empty);
 			
 			BurritoDayState state;
 			if (!BurritoDayModel.TryGetState(doc, out state))
@@ -83,7 +83,7 @@ namespace Tepeyac.Core
 					
 					Distance distance;
 					var xml = new XmlDocument();
-					xml.LoadXml(data);
+					xml.LoadXml(data ?? String.Empty);
 					
 					if (BurritoDayModel.TryGetDistance(xml, out distance))
 					{
@@ -122,7 +122,7 @@ namespace Tepeyac.Core
 				}
 			}
 
-			state = BurritoDayState.Unknown;
+			state = default(BurritoDayState);
 			return false;
 		}
 		
@@ -141,6 +141,13 @@ namespace Tepeyac.Core
 		private static bool TryGetLocation(string data,
 			out double latitude, out double longitude)
 		{
+			latitude = longitude = default(double);
+			
+			if (String.IsNullOrEmpty(data))
+			{
+				return false;
+			}
+			
 			foreach (var match in BurritoDayModel.Regex.Matches(data))
 			{
 				var center = HttpUtility.ParseQueryString(match.ToString())["center"];
@@ -156,7 +163,6 @@ namespace Tepeyac.Core
 				}
 			}
 			
-			latitude = longitude = default(double);
 			return false;
 		}
 		
