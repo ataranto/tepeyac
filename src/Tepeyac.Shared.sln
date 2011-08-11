@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac", "Tepeyac\Tepeyac.csproj", "{41CDE100-09CE-4FED-ADF9-88D909A8930E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.Test", "Tepeyac.Test\Tepeyac.Test.csproj", "{4C7277F2-5A2B-4B3F-AB60-F5816926CE79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Debug|x86.Build.0 = Debug|Any CPU
 		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Release|x86.ActiveCfg = Release|Any CPU
 		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Release|x86.Build.0 = Release|Any CPU
+		{4C7277F2-5A2B-4B3F-AB60-F5816926CE79}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4C7277F2-5A2B-4B3F-AB60-F5816926CE79}.Debug|x86.Build.0 = Debug|Any CPU
+		{4C7277F2-5A2B-4B3F-AB60-F5816926CE79}.Release|x86.ActiveCfg = Release|Any CPU
+		{4C7277F2-5A2B-4B3F-AB60-F5816926CE79}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Tepeyac\Tepeyac.csproj
