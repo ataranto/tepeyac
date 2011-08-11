@@ -4,7 +4,7 @@ namespace Tepeyac.Core
 {
 	public interface IWebClient
 	{	
-		string DownloadString(Uri uri);
+		string Download(Uri uri);
 	}
 }
 

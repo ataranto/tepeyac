@@ -14,13 +14,13 @@ namespace Tepeyac.Core
 		
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri burrito_day_uri = new Uri("http://isitburritoday.com");
-		private readonly string api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA&origins=";
+		private readonly Uri latitude_uri = new Uri("http://www.google.com/latitude/apps/badge/api?user=797967215506697296&type=iframe&maptype=roadmap");
+		private readonly string distance_api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA&origins=";
 
 		private readonly IFiber fiber;
 		private readonly IWebClient client;
 		
 		private BurritoDayState state = BurritoDayState.Unknown;
-		private Uri latitude_uri = null;
 		private IDisposable location_scheduled = null;
 		
 		public BurritoDayModel(IFiber fiber, IWebClient client)
@@ -61,12 +61,9 @@ namespace Tepeyac.Core
 		private void PollState()
 		{
 			// load burrito website html
-			var data = this.client.DownloadString(this.burrito_day_uri);
+			var data = this.client.Download(this.burrito_day_uri);
 			var doc = new HtmlDocument();
 			doc.LoadHtml(data ?? String.Empty);
-			
-			// parse latitude url
-			BurritoDayModel.TryGetLatitudeUri(doc, out this.latitude_uri);
 			
 			// parse day
 			BurritoDayState state;
@@ -97,34 +94,28 @@ namespace Tepeyac.Core
 		
 		private void PollLocation()
 		{
-			/*
-			Uri uri;
-			if (state == BurritoDayState.Yes &&
-				BurritoDayModel.TryGetLatitudeUri(doc, out uri))
+			state = BurritoDayState.Yes;
+			var data = this.client.Download(this.latitude_uri);
+			
+			double latitude, longitude;
+			if (BurritoDayModel.TryGetLocation(data, out latitude, out longitude))
 			{
-				data = this.client.DownloadString(uri);
-				double latitude, longitude;
-				
-				if (BurritoDayModel.TryGetLocation(data, out latitude, out longitude))
+				var uri = new Uri(this.distance_api + latitude + "," + longitude);
+				data = this.client.Download(uri);
+			
+				var xml = new XmlDocument();
+				xml.LoadXml(data ?? String.Empty);
+			
+				Distance distance;
+				if (BurritoDayModel.TryGetDistance(xml, out distance))
 				{
-					uri = new Uri(this.api + latitude + "," + longitude);
-					data = this.client.DownloadString(uri);
-					
-					Distance distance;
-					var xml = new XmlDocument();
-					xml.LoadXml(data ?? String.Empty);
-					
-					if (BurritoDayModel.TryGetDistance(xml, out distance))
-					{
-						state = distance.Duration < TimeSpan.FromMinutes(5) ?
+					state = distance.Duration < TimeSpan.FromMinutes(5) ?
 							BurritoDayState.Arrived :
 							BurritoDayState.Transit;
-					}
 				}
 			}
 			
 			this.State = state;
-			*/
 		}
 
 		private static IDictionary<string, BurritoDayState> StateKeywords = new Dictionary<string, BurritoDayState>()
@@ -154,17 +145,6 @@ namespace Tepeyac.Core
 
 			state = default(BurritoDayState);
 			return false;
-		}
-		
-		private static bool TryGetLatitudeUri(HtmlDocument doc, out Uri uri)
-		{
-			uri = null;
-			
-			var node = doc.DocumentNode.SelectSingleNode("//iframe");
-			return
-				node != null &&
-				Uri.TryCreate(node.GetAttributeValue("src", null),
-					UriKind.Absolute, out uri);
 		}
 		
 		private static Regex Regex = new Regex("\".*\"", RegexOptions.Compiled);

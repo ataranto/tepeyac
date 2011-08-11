@@ -12,6 +12,7 @@ namespace Tepeyac.Core.Test
 	public class BurritoDayModelTest : MoqTestFixture
 	{
 		private Queue<string> sequence;
+		private IDictionary<Uri, string> cache;
 		
 		private StubFiber fiber;
 		private Mock<IWebClient> mockClient;
@@ -24,16 +25,27 @@ namespace Tepeyac.Core.Test
 			this.model = new BurritoDayModel(this.fiber, this.mockClient.Object);
 			
 			this.sequence = new Queue<string>();
-			this.mockClient.Setup(m => m.DownloadString(It.IsAny<Uri>())).
-			Returns(() => this.sequence.Count > 0 ?
-				this.GetResource(this.sequence.Dequeue()) :
-				null);
+			this.cache = new Dictionary<Uri, string>();
+			
+			this.mockClient.Setup(m => m.Download(It.IsAny<Uri>())).
+				Returns((Uri uri) =>
+				{
+					string data;
+					if (!this.cache.TryGetValue(uri, out data))
+					{
+						data = this.cache[uri] = this.sequence.Count > 0 ?
+							this.GetResource(this.sequence.Dequeue()) :
+							null;
+					}
+					
+					return data;
+				});
 		}
 		
 		[Test]
 		public void TestUnknown()
 		{
-			this.fiber.ExecuteAllScheduled();
+			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.Unknown, this.model.State);
 		}
@@ -42,7 +54,7 @@ namespace Tepeyac.Core.Test
 		public void TestNo()
 		{
 			this.sequence.Enqueue("no.html");
-			this.fiber.ExecuteAllScheduled();
+			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.No, this.model.State);
 		}
@@ -51,7 +63,7 @@ namespace Tepeyac.Core.Test
 		public void TestTomorrow()
 		{
 			this.sequence.Enqueue("tomorrow.html");
-			this.fiber.ExecuteAllScheduled();
+			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.Tomorrow, this.model.State);
 		}
@@ -60,7 +72,7 @@ namespace Tepeyac.Core.Test
 		public void TestYes()
 		{
 			this.sequence.Enqueue("yes.html");
-			this.fiber.ExecuteAllScheduled();
+			this.ExecuteAllScheduled(2);
 			
 			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
 		}
@@ -71,7 +83,7 @@ namespace Tepeyac.Core.Test
 			this.sequence.Enqueue("yes.html");
 			this.sequence.Enqueue("harbor.html");
 			this.sequence.Enqueue("harbor.xml");
-			this.fiber.ExecuteAllScheduled();
+			this.ExecuteAllScheduled(2);
 			
 			Assert.AreEqual(BurritoDayState.Transit, this.model.State);
 		}
@@ -82,9 +94,17 @@ namespace Tepeyac.Core.Test
 			this.sequence.Enqueue("yes.html");
 			this.sequence.Enqueue("arrived.html");
 			this.sequence.Enqueue("arrived.xml");
-			this.fiber.ExecuteAllScheduled();
+			this.ExecuteAllScheduled(2);
 			
 			Assert.AreEqual(BurritoDayState.Arrived, this.model.State);
+		}
+		
+		private void ExecuteAllScheduled(int count)
+		{
+			for (int x = 0; x < count; x++)
+			{
+				this.fiber.ExecuteAllScheduled();
+			}
 		}
 		
 		private string GetResource(string resource)
