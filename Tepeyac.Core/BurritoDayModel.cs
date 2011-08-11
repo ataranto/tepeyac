@@ -42,7 +42,7 @@ namespace Tepeyac.Core
 				{
 					return;
 				}
-				
+
 				this.state = value;
 				
 				var handler = this.StateChanged;
@@ -62,25 +62,27 @@ namespace Tepeyac.Core
 		{
 			var data = this.client.Download(this.burrito_day_uri);
 			
-			BurritoDayState state;
-			if (!BurritoDayModel.TryParseState(data, out state))
+			BurritoDayState new_state;
+			if (!BurritoDayModel.TryParseState(data, out new_state))
 			{
 				this.State = BurritoDayState.Unknown;
 			}
-			else if (state == BurritoDayState.Yes)
+			else if (new_state != BurritoDayState.Yes)
 			{
-				this.StartLocationPolling(TimeSpan.FromMinutes(10));
+				this.StopLocationPolling();
+				this.State = new_state;
 			}
 			else
 			{
-				this.StopLocationPolling();
-				this.State = state;
+				this.StartLocationPolling(TimeSpan.FromMinutes(10));
 			}
 		}
 		
 		private void PollLocation()
 		{
-			state = BurritoDayState.Yes;
+			var new_state = this.state == BurritoDayState.Arrived ?
+				BurritoDayState.Arrived :
+				BurritoDayState.Yes;
 			var data = this.client.Download(this.latitude_uri);
 			
 			double latitude, longitude;
@@ -91,14 +93,30 @@ namespace Tepeyac.Core
 			
 				Distance distance;
 				if (BurritoDayModel.TryParseDistance(data, out distance))
-				{
-					state = distance.Duration < TimeSpan.FromMinutes(5) ?
-							BurritoDayState.Arrived :
-							BurritoDayState.Transit;
+				{	
+					if (distance.Duration > TimeSpan.FromMinutes(5))
+					{
+						new_state = BurritoDayState.Transit;
+						this.StartLocationPolling(TimeSpan.FromMinutes(2));
+					}
+					else if (this.state == BurritoDayState.Transit)
+					{
+						new_state = BurritoDayState.Arrived;
+						this.StopLocationPolling();
+						
+						// for a transition out of the Arrived state
+						// around midnight in case of back to back
+						// burrito days. a delicious special case.
+						this.fiber.Schedule(() =>
+						{
+							this.state = BurritoDayState.Unknown;
+							this.PollState();
+						}, (long)TimeSpan.FromHours(12).TotalMilliseconds);
+					}
 				}
 			}
 			
-			this.State = state;
+			this.State = new_state;
 		}
 		
 		private void StartLocationPolling(TimeSpan interval)
@@ -107,7 +125,7 @@ namespace Tepeyac.Core
 			
 			var ms = (long)interval.TotalMilliseconds;
 			this.location_scheduled =
-				this.fiber.ScheduleOnInterval(this.PollLocation, 0, ms);
+				this.fiber.ScheduleOnInterval(this.PollLocation, ms, ms);
 		}
 		
 		private void StopLocationPolling()

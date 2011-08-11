@@ -90,11 +90,14 @@ namespace Tepeyac.Core.Test
 		
 		[Test]
 		public void TestArrived()
-		{
+		{			
+			this.TestInTransit();
+			this.cache.Clear();
+			
 			this.sequence.Enqueue("yes.html");
 			this.sequence.Enqueue("arrived.html");
 			this.sequence.Enqueue("arrived.xml");
-			this.ExecuteAllScheduled(2);
+			this.ExecuteAllScheduled(1);
 			
 			Assert.AreEqual(BurritoDayState.Arrived, this.model.State);
 		}
