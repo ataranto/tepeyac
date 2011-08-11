@@ -12,6 +12,7 @@ namespace Tepeyac.Core
 	{
 		public event EventHandler Changed;
 		
+		private readonly object sync = new object();
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri burrito_day_uri = new Uri("http://isitburritoday.com");
 		private readonly Uri latitude_uri = new Uri("http://www.google.com/latitude/apps/badge/api?user=797967215506697296&type=iframe&maptype=roadmap");
@@ -36,7 +37,12 @@ namespace Tepeyac.Core
 		
 		public BurritoDayState State
 		{
-			get { return this.state; }
+			get {
+				lock (this.sync)
+				{
+					return this.state;
+				}
+			}
 			
 			private set
 			{
@@ -50,8 +56,11 @@ namespace Tepeyac.Core
 						return;
 					}
 				}
-
-				this.state = value;
+				
+				lock (this.sync)
+				{
+					this.state = value;
+				}
 				
 				var handler = this.Changed;
 				if (handler != null)
@@ -63,12 +72,24 @@ namespace Tepeyac.Core
 		
 		public TimeSpan Duration
 		{
-			get { return this.duration; }	
+			get
+			{
+				lock (this.sync)
+				{
+					return this.duration;
+				}
+			}
 		}
 		
 		public string Location
 		{
-			get { return this.location; }	
+			get
+			{
+				lock (this.sync)
+				{
+					return this.location;
+				}
+			}
 		}
 		
 		public void Refresh()
@@ -116,8 +137,11 @@ namespace Tepeyac.Core
 				{	
 					if (new_duration > TimeSpan.FromMinutes(5))
 					{
-						this.duration = new_duration;
-						this.location = new_location;
+						lock (this.sync)
+						{
+							this.duration = new_duration;
+							this.location = new_location;
+						}
 						
 						new_state = BurritoDayState.Transit;
 						this.StartLocationPolling(TimeSpan.FromMinutes(2));
