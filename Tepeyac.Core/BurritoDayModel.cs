@@ -60,36 +60,22 @@ namespace Tepeyac.Core
 		
 		private void PollState()
 		{
-			// load burrito website html
 			var data = this.client.Download(this.burrito_day_uri);
-			var doc = new HtmlDocument();
-			doc.LoadHtml(data ?? String.Empty);
 			
-			// parse day
 			BurritoDayState state;
-			if (!BurritoDayModel.TryGetState(doc, out state))
+			if (!BurritoDayModel.TryParseState(data, out state))
 			{
-				state = BurritoDayState.Unknown;
+				this.State = BurritoDayState.Unknown;
 			}
-			
-			if (state == BurritoDayState.Yes &&
-				this.location_scheduled == null)
+			else if (state == BurritoDayState.Yes)
 			{
-				// hoorj, start polling for location updates
-				this.location_scheduled =
-					this.fiber.ScheduleOnInterval(this.PollLocation, 0,
-						(long)TimeSpan.FromMinutes(10).TotalMilliseconds);
-
-				return;
+				this.StartLocationPolling(TimeSpan.FromMinutes(10));
 			}
-
-			// stop polling for location updates
-			using (this.location_scheduled)
+			else
 			{
-				this.location_scheduled = null;
+				this.StopLocationPolling();
+				this.State = state;
 			}
-			
-			this.State = state;
 		}
 		
 		private void PollLocation()
@@ -98,16 +84,13 @@ namespace Tepeyac.Core
 			var data = this.client.Download(this.latitude_uri);
 			
 			double latitude, longitude;
-			if (BurritoDayModel.TryGetLocation(data, out latitude, out longitude))
+			if (BurritoDayModel.TryParseLocation(data, out latitude, out longitude))
 			{
 				var uri = new Uri(this.distance_api + latitude + "," + longitude);
 				data = this.client.Download(uri);
 			
-				var xml = new XmlDocument();
-				xml.LoadXml(data ?? String.Empty);
-			
 				Distance distance;
-				if (BurritoDayModel.TryGetDistance(xml, out distance))
+				if (BurritoDayModel.TryParseDistance(data, out distance))
 				{
 					state = distance.Duration < TimeSpan.FromMinutes(5) ?
 							BurritoDayState.Arrived :
@@ -117,6 +100,23 @@ namespace Tepeyac.Core
 			
 			this.State = state;
 		}
+		
+		private void StartLocationPolling(TimeSpan interval)
+		{
+			this.StopLocationPolling();
+			
+			var ms = (long)interval.TotalMilliseconds;
+			this.location_scheduled =
+				this.fiber.ScheduleOnInterval(this.PollLocation, 0, ms);
+		}
+		
+		private void StopLocationPolling()
+		{
+			using (this.location_scheduled)
+			{
+				this.location_scheduled = null;
+			}
+		}
 
 		private static IDictionary<string, BurritoDayState> StateKeywords = new Dictionary<string, BurritoDayState>()
 		{
@@ -124,8 +124,11 @@ namespace Tepeyac.Core
 			{ "yes", BurritoDayState.Yes },
 			{ "tomorrow", BurritoDayState.Tomorrow },
 		};
-		private static bool TryGetState(HtmlDocument doc, out BurritoDayState state)
+		private static bool TryParseState(string data, out BurritoDayState state)
 		{
+			var doc = new HtmlDocument();
+			doc.LoadHtml(data ?? String.Empty);
+			
 			var node =
 				doc.DocumentNode.SelectSingleNode("//div[@id='hooray']") ??
 				doc.DocumentNode.SelectSingleNode("//div[@id='answer']");
@@ -148,7 +151,7 @@ namespace Tepeyac.Core
 		}
 		
 		private static Regex Regex = new Regex("\".*\"", RegexOptions.Compiled);
-		private static bool TryGetLocation(string data,
+		private static bool TryParseLocation(string data,
 			out double latitude, out double longitude)
 		{
 			latitude = longitude = default(double);
@@ -176,9 +179,11 @@ namespace Tepeyac.Core
 			return false;
 		}
 		
-		private static bool TryGetDistance(XmlDocument doc, out Distance distance)
+		private static bool TryParseDistance(string data, out Distance distance)
 		{
 			distance = new Distance();
+			var doc = new XmlDocument();
+			doc.LoadXml(data ?? String.Empty);
 			
 			var node = doc.SelectSingleNode("//origin_address");
 			if (node != null && !String.IsNullOrEmpty(node.InnerText))

@@ -10,7 +10,7 @@ namespace Tepeyac.Core
 
 		}
 		
-		public new string Download(Uri uri)
+		public string Download(Uri uri)
 		{
 			try
 			{
