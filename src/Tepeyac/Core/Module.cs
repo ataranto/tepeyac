@@ -18,8 +18,6 @@ namespace Tepeyac.Core
 			});
 			
 			base.Bind<IWebClient>().To<WebClient>();
-			
-			base.Bind<IPlatform>().To<Platform>().InSingletonScope();
 			base.Bind<IBurritoDayModel>().To<BurritoDayModel>().InSingletonScope();
 		}
 	}

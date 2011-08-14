@@ -56,19 +56,14 @@
     <Compile Include="Core\BurritoDayModel.cs" />
     <Compile Include="Core\Executor.cs" />
     <Compile Include="Core\IBurritoDayModel.cs" />
-    <Compile Include="Core\IPlatform.cs" />
     <Compile Include="Core\IWebClient.cs" />
     <Compile Include="Core\Module.cs" />
-    <Compile Include="Core\Platform.cs" />
     <Compile Include="Core\WebClient.cs" />
     <Compile Include="UI\BurritoDayPresenter.cs" />
     <Compile Include="UI\GuiFiberAttribute.cs" />
     <Compile Include="UI\GuiPresenter.cs" />
-    <Compile Include="UI\IActivationView.cs" />
     <Compile Include="UI\IBurritoDayView.cs" />
     <Compile Include="UI\ILauncher.cs" />
-    <Compile Include="UI\IPreferencesView.cs" />
-    <Compile Include="UI\IToolKit.cs" />
     <Compile Include="UI\IUrlActivationView.cs" />
     <Compile Include="UI\IView.cs" />
     <Compile Include="UI\Launcher.cs" />
@@ -76,9 +71,5 @@
     <Compile Include="UI\Module.cs" />
     <Compile Include="UI\Presenter.cs" />
     <Compile Include="UI\UrlActivationPresenter.cs" />
-    <Compile Include="UI\ViewActivationPresenter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Core\Tepeyac.Core.csproj" />
   </ItemGroup>
 </Project>

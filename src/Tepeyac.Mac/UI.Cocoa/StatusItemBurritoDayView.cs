@@ -8,7 +8,7 @@ using Tepeyac.Core;
 
 namespace Tepeyac.UI.Cocoa
 {
-	public class StatusItemBurritoDayView : IBurritoDayView, IUrlActivationView, IActivationView<IPreferencesView>
+	public class StatusItemBurritoDayView : IBurritoDayView, IUrlActivationView
 	{
 		private NSStatusItem si;
 		private readonly ICollection<IDisposable> presenters;
@@ -17,7 +17,6 @@ namespace Tepeyac.UI.Cocoa
 		private readonly NSMenuItem refreshMenuItem = new NSMenuItem("Refresh");
 		private readonly NSMenuItem launchMenuItem = new NSMenuItem("Launch Burrito Website");
 		private readonly NSMenuItem dismissMenuitem = new NSMenuItem("Dismiss");
-		private readonly NSMenuItem preferencesMenuItem = new NSMenuItem("Preferences...");
 		private readonly NSMenuItem quitMenuItem = new NSMenuItem("Quit Tepeyac");
 		
 		public StatusItemBurritoDayView (IKernel kernel)
@@ -48,7 +47,7 @@ namespace Tepeyac.UI.Cocoa
 			{
 				kernel.Get<BurritoDayPresenter>(parameter),
 				kernel.Get<UrlActivationPresenter>(parameter),
-				kernel.Get<ViewActivationPresenter<IPreferencesView>>(parameter),
+
 			};
 		}
 		
@@ -127,16 +126,6 @@ namespace Tepeyac.UI.Cocoa
 		{
 			add { this.urlActivated += value; }
 			remove { this.urlActivated -= value; }
-		}
-		
-		#endregion
-		
-		#region IActivationView<IPreferencesView>
-		
-		event EventHandler IActivationView<IPreferencesView>.Activated
-		{
-			add {  this.preferencesMenuItem.Activated += value; }
-			remove { this.preferencesMenuItem.Activated -= value; }
 		}
 		
 		#endregion
