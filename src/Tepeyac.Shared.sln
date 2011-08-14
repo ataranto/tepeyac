@@ -24,7 +24,7 @@ Global
 		StartupItem = Tepeyac\Tepeyac.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
-		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$1.DirectoryNamespaceAssociation = PrefixedFlat
 		$1.ResourceNamePolicy = FileFormatDefault
 	EndGlobalSection
 EndGlobal
