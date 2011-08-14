@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{613B5F36-6EEF-48F1-AC75-5608038EA3F2}</ProjectGuid>
+    <ProjectTypeGuids>{E613F3A2-FE9C-494F-B74E-F63BCB86FEA6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Retlang.MonoTouch</RootNamespace>
+    <AssemblyName>Retlang.MonoTouch</AssemblyName>
+    <MtouchMinimumOS>3.0</MtouchMinimumOS>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchUseSGen>false</MtouchUseSGen>
+    <ConsolePause>false</ConsolePause>
+    <MtouchUseLlvm>false</MtouchUseLlvm>
+    <MtouchUseThumb>false</MtouchUseThumb>
+    <MtouchArch>ARMv6</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchUseSGen>false</MtouchUseSGen>
+    <MtouchDebug>False</MtouchDebug>
+    <ConsolePause>false</ConsolePause>
+    <MtouchUseLlvm>false</MtouchUseLlvm>
+    <MtouchUseThumb>false</MtouchUseThumb>
+    <MtouchArch>ARMv6</MtouchArch>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Channels\" />
+    <Folder Include="Core\" />
+    <Folder Include="Fibers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\ExecutionState.cs">
+      <Link>Fibers\ExecutionState.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\GuiFiber.cs">
+      <Link>Fibers\GuiFiber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\IFiber.cs">
+      <Link>Fibers\IFiber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\PoolFiber.cs">
+      <Link>Fibers\PoolFiber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\StubFiber.cs">
+      <Link>Fibers\StubFiber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\StubScheduledAction.cs">
+      <Link>Fibers\StubScheduledAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Fibers\ThreadFiber.cs">
+      <Link>Fibers\ThreadFiber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\BoundedQueue.cs">
+      <Link>Core\BoundedQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\DefaultExecutor.cs">
+      <Link>Core\DefaultExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\DefaultQueue.cs">
+      <Link>Core\DefaultQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\DefaultThreadPool.cs">
+      <Link>Core\DefaultThreadPool.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\IExecutionContext.cs">
+      <Link>Core\IExecutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\IExecutor.cs">
+      <Link>Core\IExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\IPendingEvent.cs">
+      <Link>Core\IPendingEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\IQueue.cs">
+      <Link>Core\IQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\IScheduler.cs">
+      <Link>Core\IScheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\ISchedulerRegistry.cs">
+      <Link>Core\ISchedulerRegistry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\ISubscriptionRegistry.cs">
+      <Link>Core\ISubscriptionRegistry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\IThreadPool.cs">
+      <Link>Core\IThreadPool.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\Lists.cs">
+      <Link>Core\Lists.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\PendingAction.cs">
+      <Link>Core\PendingAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\QueueFullException.cs">
+      <Link>Core\QueueFullException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\RecurringEvent.cs">
+      <Link>Core\RecurringEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\Scheduler.cs">
+      <Link>Core\Scheduler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\SingleEvent.cs">
+      <Link>Core\SingleEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\Subscriptions.cs">
+      <Link>Core\Subscriptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Core\TimerAction.cs">
+      <Link>Core\TimerAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\BaseSubscription.cs">
+      <Link>Channels\BaseSubscription.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\BatchSubscriber.cs">
+      <Link>Channels\BatchSubscriber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\Channel.cs">
+      <Link>Channels\Channel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\ChannelRequest.cs">
+      <Link>Channels\ChannelRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\ChannelSubscription.cs">
+      <Link>Channels\ChannelSubscription.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IChannel.cs">
+      <Link>Channels\IChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IProducerThreadSubscriber.cs">
+      <Link>Channels\IProducerThreadSubscriber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IPublisher.cs">
+      <Link>Channels\IPublisher.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IQueueChannel.cs">
+      <Link>Channels\IQueueChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IReply.cs">
+      <Link>Channels\IReply.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IReplySubscriber.cs">
+      <Link>Channels\IReplySubscriber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IRequest.cs">
+      <Link>Channels\IRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IRequestPublisher.cs">
+      <Link>Channels\IRequestPublisher.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\IRequestReplyChannel.cs">
+      <Link>Channels\IRequestReplyChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\ISnapshotChannel.cs">
+      <Link>Channels\ISnapshotChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\ISubscribable.cs">
+      <Link>Channels\ISubscribable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\ISubscriber.cs">
+      <Link>Channels\ISubscriber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\KeyedBatchSubscriber.cs">
+      <Link>Channels\KeyedBatchSubscriber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\LastSubscriber.cs">
+      <Link>Channels\LastSubscriber.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\QueueChannel.cs">
+      <Link>Channels\QueueChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\QueueConsumer.cs">
+      <Link>Channels\QueueConsumer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\RequestReplyChannel.cs">
+      <Link>Channels\RequestReplyChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\SnapshotChannel.cs">
+      <Link>Channels\SnapshotChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\retlang\src\Retlang\Channels\Unsubscriber.cs">
+      <Link>Channels\Unsubscriber.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>
