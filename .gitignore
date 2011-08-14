@@ -19,3 +19,8 @@ test-results/
 build/
 *.mode2v3
 *.pbxuser
+
+# external library sources
+ext/funq
+ext/htmlagilitypack
+ext/retlang
