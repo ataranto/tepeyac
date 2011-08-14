@@ -5,6 +5,7 @@ using System.Web;
 using System.Xml;
 using HtmlAgilityPack;
 using Retlang.Fibers;
+using System.Xml.Schema;
 
 namespace Tepeyac.Core
 {
@@ -228,10 +229,25 @@ namespace Tepeyac.Core
 			
 			foreach (var match in BurritoDayModel.Regex.Matches(data))
 			{
-				var center = HttpUtility.ParseQueryString(match.ToString())["center"];
+				string center =  null;
+				
+				var tokens = match.ToString().Split('?');
+				if (tokens.Length == 2)
+				{
+					tokens = tokens[1].Split('&');
+					foreach (var token in tokens)
+					{
+						var pair = token.Split('=');
+						if (pair.Length == 2 && pair[0] == "center")
+						{
+							center = pair[1];
+						}
+					}
+				}
+				
 				if (!String.IsNullOrEmpty(center))
 				{
-					var tokens = center.Split(',');
+					tokens = center.Split(',');
 					if (tokens.Length == 2 &&
 						double.TryParse(tokens[0], out latitude) &&
 						double.TryParse(tokens[1], out longitude))
