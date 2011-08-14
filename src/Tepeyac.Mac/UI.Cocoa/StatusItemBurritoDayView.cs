@@ -21,7 +21,6 @@ namespace Tepeyac.UI.Cocoa
 		
 		public StatusItemBurritoDayView (IKernel kernel)
 		{
-			Console.WriteLine("here");
 			this.menu = new NSMenu();
 			
 			this.menu.AddItem(this.refreshMenuItem);
