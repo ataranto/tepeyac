@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ABEF8728-33AB-47FA-BAFC-24410B496D7D}</ProjectGuid>
+    <ProjectTypeGuids>{E613F3A2-FE9C-494F-B74E-F63BCB86FEA6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>HtmlAgilityPack.MonoTouch</RootNamespace>
+    <AssemblyName>HtmlAgilityPack.MonoTouch</AssemblyName>
+    <MtouchMinimumOS>3.0</MtouchMinimumOS>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchUseSGen>false</MtouchUseSGen>
+    <ConsolePause>false</ConsolePause>
+    <MtouchUseLlvm>false</MtouchUseLlvm>
+    <MtouchUseThumb>false</MtouchUseThumb>
+    <MtouchArch>ARMv6</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchUseSGen>false</MtouchUseSGen>
+    <MtouchDebug>False</MtouchDebug>
+    <ConsolePause>false</ConsolePause>
+    <MtouchUseLlvm>false</MtouchUseLlvm>
+    <MtouchUseThumb>false</MtouchUseThumb>
+    <MtouchArch>ARMv6</MtouchArch>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\crc32.cs">
+      <Link>crc32.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\EncodingFoundException.cs">
+      <Link>EncodingFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlAttribute.cs">
+      <Link>HtmlAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlAttributeCollection.cs">
+      <Link>HtmlAttributeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlCmdLine.cs">
+      <Link>HtmlCmdLine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlCommentNode.cs">
+      <Link>HtmlCommentNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlDocument.cs">
+      <Link>HtmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlDocument.Xpath.cs">
+      <Link>HtmlDocument.Xpath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlElementFlag.cs">
+      <Link>HtmlElementFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlEntity.cs">
+      <Link>HtmlEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlNameTable.cs">
+      <Link>HtmlNameTable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlNode.cs">
+      <Link>HtmlNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlNode.Xpath.cs">
+      <Link>HtmlNode.Xpath.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlNodeCollection.cs">
+      <Link>HtmlNodeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlNodeNavigator.cs">
+      <Link>HtmlNodeNavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlNodeType.cs">
+      <Link>HtmlNodeType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlParseError.cs">
+      <Link>HtmlParseError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlParseErrorCode.cs">
+      <Link>HtmlParseErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlTextNode.cs">
+      <Link>HtmlTextNode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\HtmlWebException.cs">
+      <Link>HtmlWebException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\IOLibrary.cs">
+      <Link>IOLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\MixedCodeDocument.cs">
+      <Link>MixedCodeDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\MixedCodeDocumentCodeFragment.cs">
+      <Link>MixedCodeDocumentCodeFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\MixedCodeDocumentFragment.cs">
+      <Link>MixedCodeDocumentFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\MixedCodeDocumentFragmentList.cs">
+      <Link>MixedCodeDocumentFragmentList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\MixedCodeDocumentFragmentType.cs">
+      <Link>MixedCodeDocumentFragmentType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\MixedCodeDocumentTextFragment.cs">
+      <Link>MixedCodeDocumentTextFragment.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\NameValuePair.cs">
+      <Link>NameValuePair.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\NameValuePairList.cs">
+      <Link>NameValuePairList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\Trace.cs">
+      <Link>Trace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\Trace.FullFramework.cs">
+      <Link>Trace.FullFramework.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ext\htmlagilitypack\HtmlAgilityPack\Utilities.cs">
+      <Link>Utilities.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>

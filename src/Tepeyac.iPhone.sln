@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tepeyac.iOS", "Tepeyac.iOS\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retlang.MonoTouch", "Retlang.MonoTouch\Retlang.MonoTouch.csproj", "{613B5F36-6EEF-48F1-AC75-5608038EA3F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack.MonoTouch", "HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj", "{ABEF8728-33AB-47FA-BAFC-24410B496D7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -51,6 +53,14 @@ Global
 		{826F391E-7E7F-495A-ADF0-FAB55BBD80D1}.Release|iPhone.Build.0 = Release|iPhone
 		{826F391E-7E7F-495A-ADF0-FAB55BBD80D1}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{826F391E-7E7F-495A-ADF0-FAB55BBD80D1}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Release|iPhone.Build.0 = Release|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{ABEF8728-33AB-47FA-BAFC-24410B496D7D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{BFE9A50D-DC86-4CC9-8A7D-93985B4B11D1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{BFE9A50D-DC86-4CC9-8A7D-93985B4B11D1}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{BFE9A50D-DC86-4CC9-8A7D-93985B4B11D1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
