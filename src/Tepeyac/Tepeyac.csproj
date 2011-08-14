@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -50,6 +50,7 @@
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="UI\" />
+    <Folder Include="Ninject\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BurritoDayState.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="Core\Executor.cs" />
     <Compile Include="Core\IBurritoDayModel.cs" />
     <Compile Include="Core\IWebClient.cs" />
-    <Compile Include="Core\Module.cs" />
     <Compile Include="Core\WebClient.cs" />
     <Compile Include="UI\BurritoDayPresenter.cs" />
     <Compile Include="UI\GuiFiberAttribute.cs" />
@@ -68,8 +68,8 @@
     <Compile Include="UI\IView.cs" />
     <Compile Include="UI\Launcher.cs" />
     <Compile Include="UI\MainPresenter.cs" />
-    <Compile Include="UI\Module.cs" />
     <Compile Include="UI\Presenter.cs" />
     <Compile Include="UI\UrlActivationPresenter.cs" />
+    <Compile Include="Ninject\Module.cs" />
   </ItemGroup>
 </Project>

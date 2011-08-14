@@ -1,8 +1,10 @@
 using Ninject.Modules;
-using Tepeyac.Core;
 using Retlang.Fibers;
+using Tepeyac.Core;
+using Tepeyac.UI;
+using Tepeyac.UI.Cocoa;
 
-namespace Tepeyac.UI.Cocoa
+namespace Tepeyac.Mac.Ninject
 {
 	public class Module : NinjectModule
 	{
@@ -13,8 +15,7 @@ namespace Tepeyac.UI.Cocoa
 			this.Bind<IFiber>().ToConstant(guiFiber).
 				WhenTargetHas<GuiFiberAttribute>();
 			
-			this.Rebind<ILauncher>().To<Launcher>().InSingletonScope();
-			
+			this.Rebind<ILauncher>().To<Tepeyac.UI.Cocoa.Launcher>().InSingletonScope();
 			this.Bind<IBurritoDayView>().To<StatusItemBurritoDayView>().InSingletonScope();
 		}
 	}

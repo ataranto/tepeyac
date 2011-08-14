@@ -56,9 +56,9 @@
     <Compile Include="UI.Cocoa\CocoaAdapter.cs" />
     <Compile Include="UI.Cocoa\CocoaFiber.cs" />
     <Compile Include="UI.Cocoa\Launcher.cs" />
-    <Compile Include="UI.Cocoa\Module.cs" />
     <Compile Include="UI.Cocoa\StatusItemBurritoDayView.cs" />
     <Compile Include="Integration\LSSharedFileList.cs" />
+    <Compile Include="Ninject\Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainMenu.xib" />
@@ -71,6 +71,7 @@
   <ItemGroup>
     <Folder Include="UI.Cocoa\" />
     <Folder Include="Integration\" />
+    <Folder Include="Ninject\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac\Tepeyac.csproj">

@@ -1,8 +1,9 @@
-using System;
 using Ninject.Modules;
 using Retlang.Fibers;
+using Tepeyac.Core;
+using Tepeyac.UI;
 
-namespace Tepeyac.Core
+namespace Tepeyac.Ninject
 {
 	public class Module : NinjectModule
 	{
@@ -19,6 +20,8 @@ namespace Tepeyac.Core
 			
 			base.Bind<IWebClient>().To<WebClient>();
 			base.Bind<IBurritoDayModel>().To<BurritoDayModel>().InSingletonScope();
+			
+			base.Bind<ILauncher>().To<Launcher>().InSingletonScope();
 		}
 	}
 }

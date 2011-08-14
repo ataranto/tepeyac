@@ -19,10 +19,8 @@ namespace Tepeyac.Mac
 			}
 			
 			var kernel = new StandardKernel(
-				new Tepeyac.Core.Module(),
-			    //new Tepeyac.Core.Mac.Module(),
-			    new Tepeyac.UI.Module(),
-			    new Tepeyac.UI.Cocoa.Module()
+				new Tepeyac.Ninject.Module(),
+			    new Tepeyac.Mac.Ninject.Module()
 			);
 			                  
 			kernel.Get<Tepeyac.UI.MainPresenter>();
