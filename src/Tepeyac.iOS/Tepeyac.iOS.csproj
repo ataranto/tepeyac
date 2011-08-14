@@ -45,6 +45,40 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Core\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Tepeyac\Core\BurritoDayModel.cs">
+      <Link>Core\BurritoDayModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\Core\BurritoDayState.cs">
+      <Link>Core\BurritoDayState.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\Core\Executor.cs">
+      <Link>Core\Executor.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\Core\IBurritoDayModel.cs">
+      <Link>Core\IBurritoDayModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\Core\IWebClient.cs">
+      <Link>Core\IWebClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\Core\WebClient.cs">
+      <Link>Core\WebClient.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj">
+      <Project>{ABEF8728-33AB-47FA-BAFC-24410B496D7D}</Project>
+      <Name>HtmlAgilityPack.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Retlang.MonoTouch\Retlang.MonoTouch.csproj">
+      <Project>{613B5F36-6EEF-48F1-AC75-5608038EA3F2}</Project>
+      <Name>Retlang.MonoTouch</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
