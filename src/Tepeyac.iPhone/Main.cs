@@ -1,8 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Retlang.Core;
+using Retlang.Fibers;
+using Tepeyac.Core;
+using Tepeyac.iPhone.UI;
+using Tepeyac.UI.MonoTouch;
 
 namespace Tepeyac.iPhone
 {
@@ -20,9 +22,22 @@ namespace Tepeyac.iPhone
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			// If you have defined a view, add it here:
-			// window.AddSubview (navigationController.View);
+			var container = new Funq.Container();
+			Tepeyac.Core.Registry.Register(container);
+			
+			container.Register<IFiber>("GuiFiber", c =>
+			{
+				var executor =
+					c.Resolve<IExecutor>() ??
+					new Executor();
+				var fiber = new MonoTouchFiber(executor);
+				fiber.Start();
+				
+				return fiber;
+			});
 
+			var view = new BurritoDayView(container);
+			window.AddSubview(view.View);
 			window.MakeKeyAndVisible ();
 	
 			return true;

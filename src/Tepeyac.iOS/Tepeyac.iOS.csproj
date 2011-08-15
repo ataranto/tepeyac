@@ -51,6 +51,7 @@
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="UI\" />
+    <Folder Include="Funq\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Tepeyac\Core\BurritoDayModel.cs">
@@ -100,6 +101,9 @@
     </Compile>
     <Compile Include="UI.MonoTouch\MonoTouchAdapter.cs" />
     <Compile Include="UI.MonoTouch\MonoTouchFiber.cs" />
+    <Compile Include="..\Tepeyac\Funq\Registry.cs">
+      <Link>Funq\Registry.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj">
@@ -109,6 +113,10 @@
     <ProjectReference Include="..\Retlang.MonoTouch\Retlang.MonoTouch.csproj">
       <Project>{613B5F36-6EEF-48F1-AC75-5608038EA3F2}</Project>
       <Name>Retlang.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Funq.MonoTouch\Funq.MonoTouch.csproj">
+      <Project>{1FC14FA0-97E1-4260-B415-D909A4A37075}</Project>
+      <Name>Funq.MonoTouch</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

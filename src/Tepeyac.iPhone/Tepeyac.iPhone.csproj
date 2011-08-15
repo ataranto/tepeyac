@@ -87,23 +87,30 @@
       <DependentUpon>MainWindow.xib</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
+    <Compile Include="UI\BurritoDayView.xib.cs">
+      <DependentUpon>BurritoDayView.xib</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BurritoDayView.xib.designer.cs">
+      <DependentUpon>BurritoDayView.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
+    <Page Include="UI\BurritoDayView.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Retlang.MonoTouch\Retlang.MonoTouch.csproj">
-      <Project>{613B5F36-6EEF-48F1-AC75-5608038EA3F2}</Project>
-      <Name>Retlang.MonoTouch</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tepeyac.iOS\Tepeyac.iOS.csproj">
       <Project>{BFE9A50D-DC86-4CC9-8A7D-93985B4B11D1}</Project>
       <Name>Tepeyac.iOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj">
-      <Project>{ABEF8728-33AB-47FA-BAFC-24410B496D7D}</Project>
-      <Name>HtmlAgilityPack.MonoTouch</Name>
+    <ProjectReference Include="..\Funq.MonoTouch\Funq.MonoTouch.csproj">
+      <Project>{1FC14FA0-97E1-4260-B415-D909A4A37075}</Project>
+      <Name>Funq.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Retlang.MonoTouch\Retlang.MonoTouch.csproj">
+      <Project>{613B5F36-6EEF-48F1-AC75-5608038EA3F2}</Project>
+      <Name>Retlang.MonoTouch</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
