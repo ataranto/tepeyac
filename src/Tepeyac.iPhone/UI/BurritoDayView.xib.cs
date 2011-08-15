@@ -4,11 +4,15 @@ using MonoTouch.UIKit;
 using Tepeyac.Core;
 using Tepeyac.UI;
 using Funq;
+using System.Collections.Generic;
 
 namespace Tepeyac.iPhone.UI
 {
 	public partial class BurritoDayView : UIViewController, IBurritoDayView, IUrlActivationView
 	{
+		private readonly Container container;
+		private ICollection<IDisposable> presenters;
+
 		#region Constructors
 		
 		// The IntPtr and initWithCoder constructors are required for items that need 
@@ -27,11 +31,22 @@ namespace Tepeyac.iPhone.UI
 		
 		public BurritoDayView (Container container) : base ("BurritoDayView", null)
 		{
+			this.container = container;
 			Initialize ();
 		}
 		
 		void Initialize ()
 		{
+			if (this.container == null)
+			{	
+				return;
+			}
+			
+			this.presenters = new IDisposable[]
+			{
+				this.container.Resolve<BurritoDayPresenter, IBurritoDayView>(this),
+				this.container.Resolve<UrlActivationPresenter, IUrlActivationView>(this),
+			};
 		}
 		
 		#endregion
@@ -48,10 +63,11 @@ namespace Tepeyac.iPhone.UI
 		
 		#region IBurritoDayView
 		
+		private event EventHandler refreshActivated;
 		event EventHandler IBurritoDayView.RefreshActivated
 		{
-			add { }
-			remove { }
+			add { this.refreshActivated += value; }
+			remove { this.refreshActivated -= value; }
 		}
 		
 		event EventHandler IBurritoDayView.DismissActivated
@@ -62,7 +78,8 @@ namespace Tepeyac.iPhone.UI
 		
 		void IBurritoDayView.SetState(BurritoDayState state, string description)
 		{
-			
+			Console.WriteLine("set state: {0}", state.ToString());
+			this.label.Text = state.ToString();
 		}
 		
 		#endregion

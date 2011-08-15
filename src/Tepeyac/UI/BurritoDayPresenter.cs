@@ -12,7 +12,7 @@ namespace Tepeyac.UI
 			base.model.Changed += this.OnModelChanged;
 			base.view.RefreshActivated += this.OnViewRefreshActivated;
 			base.view.DismissActivated += this.OnViewDismissActivated;
-
+			
 			this.ViewSetState(base.model.State);
 		}
 		

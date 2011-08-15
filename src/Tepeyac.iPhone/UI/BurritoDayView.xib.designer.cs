@@ -17,6 +17,12 @@ namespace Tepeyac.iPhone.UI {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
+		private MonoTouch.UIKit.UILabel __mt_label;
+		
+		private MonoTouch.UIKit.UIButton __mt_launchButton;
+		
+		private MonoTouch.UIKit.UIButton __mt_refreshButton;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -27,6 +33,42 @@ namespace Tepeyac.iPhone.UI {
 			set {
 				this.__mt_view = value;
 				this.SetNativeField("view", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("label")]
+		private MonoTouch.UIKit.UILabel label {
+			get {
+				this.__mt_label = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("label")));
+				return this.__mt_label;
+			}
+			set {
+				this.__mt_label = value;
+				this.SetNativeField("label", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("launchButton")]
+		private MonoTouch.UIKit.UIButton launchButton {
+			get {
+				this.__mt_launchButton = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("launchButton")));
+				return this.__mt_launchButton;
+			}
+			set {
+				this.__mt_launchButton = value;
+				this.SetNativeField("launchButton", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("refreshButton")]
+		private MonoTouch.UIKit.UIButton refreshButton {
+			get {
+				this.__mt_refreshButton = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("refreshButton")));
+				return this.__mt_refreshButton;
+			}
+			set {
+				this.__mt_refreshButton = value;
+				this.SetNativeField("refreshButton", value);
 			}
 		}
 	}

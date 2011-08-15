@@ -38,7 +38,7 @@ namespace Tepeyac.iPhone
 
 			var view = new BurritoDayView(container);
 			window.AddSubview(view.View);
-			window.MakeKeyAndVisible ();
+			window.MakeKeyAndVisible();
 	
 			return true;
 		}
@@ -46,6 +46,7 @@ namespace Tepeyac.iPhone
 		// This method is required in iPhoneOS 3.0
 		public override void OnActivated (UIApplication application)
 		{
+			
 		}
 	}
 }
