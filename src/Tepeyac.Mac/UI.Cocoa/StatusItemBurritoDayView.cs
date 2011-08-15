@@ -106,7 +106,8 @@ namespace Tepeyac.UI.Cocoa
 			}
 			
 			var name = state.ToString().ToLower();
-			var path = NSBundle.MainBundle.PathForResource(name, "png") ??
+			var path =
+				NSBundle.MainBundle.PathForResource(name, "png") ??
 				NSBundle.MainBundle.PathForResource("no", "png");
 
 			this.si.Image = new NSImage(path);

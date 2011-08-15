@@ -115,5 +115,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\" />
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\res\arrived.png">
+      <Link>Images\arrived.png</Link>
+    </Content>
+    <Content Include="..\..\res\no.png">
+      <Link>Images\no.png</Link>
+    </Content>
+    <Content Include="..\..\res\tomorrow.png">
+      <Link>Images\tomorrow.png</Link>
+    </Content>
+    <Content Include="..\..\res\transit.png">
+      <Link>Images\transit.png</Link>
+    </Content>
+    <Content Include="..\..\res\yes.png">
+      <Link>Images\yes.png</Link>
+    </Content>
   </ItemGroup>
 </Project>

@@ -104,6 +104,7 @@
     <Compile Include="..\Tepeyac\Funq\Registry.cs">
       <Link>Funq\Registry.cs</Link>
     </Compile>
+    <Compile Include="UI.MonoTouch\Launcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj">

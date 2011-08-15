@@ -23,6 +23,8 @@ namespace Tepeyac.iPhone.UI {
 		
 		private MonoTouch.UIKit.UIButton __mt_refreshButton;
 		
+		private MonoTouch.UIKit.UIImageView __mt_image;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -69,6 +71,18 @@ namespace Tepeyac.iPhone.UI {
 			set {
 				this.__mt_refreshButton = value;
 				this.SetNativeField("refreshButton", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("image")]
+		private MonoTouch.UIKit.UIImageView image {
+			get {
+				this.__mt_image = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("image")));
+				return this.__mt_image;
+			}
+			set {
+				this.__mt_image = value;
+				this.SetNativeField("image", value);
 			}
 		}
 	}

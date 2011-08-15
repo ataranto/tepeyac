@@ -5,6 +5,7 @@ using Retlang.Fibers;
 using Tepeyac.Core;
 using Tepeyac.iPhone.UI;
 using Tepeyac.UI.MonoTouch;
+using Tepeyac.UI;
 
 namespace Tepeyac.iPhone
 {
@@ -35,6 +36,9 @@ namespace Tepeyac.iPhone
 				
 				return fiber;
 			});
+			
+			container.Register<ILauncher>(c =>
+				new Tepeyac.UI.MonoTouch.Launcher());
 
 			var view = new BurritoDayView(container);
 			window.AddSubview(view.View);

@@ -14,10 +14,7 @@ namespace Tepeyac.iPhone.UI
 		private ICollection<IDisposable> presenters;
 
 		#region Constructors
-		
-		// The IntPtr and initWithCoder constructors are required for items that need 
-		// to be able to be created from a xib rather than from managed code
-		
+
 		public BurritoDayView (IntPtr handle) : base (handle)
 		{
 			Initialize ();
@@ -42,11 +39,22 @@ namespace Tepeyac.iPhone.UI
 				return;
 			}
 			
-			this.presenters = new IDisposable[]
+			base.BeginInvokeOnMainThread(() =>
 			{
-				this.container.Resolve<BurritoDayPresenter, IBurritoDayView>(this),
-				this.container.Resolve<UrlActivationPresenter, IUrlActivationView>(this),
-			};
+				this.launchButton.TouchUpInside += delegate {
+					var handler = this.urlActivated;
+					if (handler != null)
+					{
+						handler(this, "http://isitburritoday.com");
+					}
+				};
+			
+				this.presenters = new IDisposable[]
+				{
+					this.container.Resolve<BurritoDayPresenter, IBurritoDayView>(this),
+					this.container.Resolve<UrlActivationPresenter, IUrlActivationView>(this),
+				};
+			});
 		}
 		
 		#endregion
@@ -63,11 +71,10 @@ namespace Tepeyac.iPhone.UI
 		
 		#region IBurritoDayView
 		
-		private event EventHandler refreshActivated;
 		event EventHandler IBurritoDayView.RefreshActivated
 		{
-			add { this.refreshActivated += value; }
-			remove { this.refreshActivated -= value; }
+			add { this.refreshButton.TouchUpInside += value; }
+			remove { this.refreshButton.TouchUpInside -= value; }
 		}
 		
 		event EventHandler IBurritoDayView.DismissActivated
@@ -78,23 +85,27 @@ namespace Tepeyac.iPhone.UI
 		
 		void IBurritoDayView.SetState(BurritoDayState state, string description)
 		{
-			Console.WriteLine("set state: {0}", state.ToString());
-			this.label.Text = state.ToString();
+			var name = "Images/" + state.ToString().ToLower() + ".png";
+			var image =
+				UIImage.FromFile(name) ??
+				UIImage.FromFile("Images/no.png");
+			
+			this.image.Image = image;
+			this.label.Text = description;
 		}
 		
 		#endregion
 		
 		#region IUrlActivationView
 		
+		private event Action<object, string> urlActivated;
 		event Action<object, string> IUrlActivationView.Activated
 		{
-			add { }
-			remove { }
+			add { this.urlActivated += value; }
+			remove { this.urlActivated -= value; }
 		}
 		
 		#endregion
-		
-		
 	}
 }
 
