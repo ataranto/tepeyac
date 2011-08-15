@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retlang.MonoTouch", "Retlan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack.MonoTouch", "HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj", "{ABEF8728-33AB-47FA-BAFC-24410B496D7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Funq.MonoTouch", "Funq.MonoTouch\Funq.MonoTouch.csproj", "{1FC14FA0-97E1-4260-B415-D909A4A37075}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -21,6 +23,14 @@ Global
 		Release|iPhone = Release|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Release|iPhone.Build.0 = Release|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{1FC14FA0-97E1-4260-B415-D909A4A37075}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{41CDE100-09CE-4FED-ADF9-88D909A8930E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
@@ -72,5 +82,9 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Tepeyac.iPhone\Tepeyac.iPhone.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedFlat
+		$1.ResourceNamePolicy = FileFormatDefault
 	EndGlobalSection
 EndGlobal
