@@ -87,9 +87,59 @@
       <DependentUpon>MainWindow.xib</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
+    <Compile Include="..\Tepeyac\UI\BurritoDayPresenter.cs">
+      <Link>UI\BurritoDayPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\GuiFiberAttribute.cs">
+      <Link>UI\GuiFiberAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\GuiPresenter.cs">
+      <Link>UI\GuiPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\IBurritoDayView.cs">
+      <Link>UI\IBurritoDayView.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\ILauncher.cs">
+      <Link>UI\ILauncher.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\IUrlActivationView.cs">
+      <Link>UI\IUrlActivationView.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\IView.cs">
+      <Link>UI\IView.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\Launcher.cs">
+      <Link>UI\Launcher.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\MainPresenter.cs">
+      <Link>UI\MainPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\Presenter.cs">
+      <Link>UI\Presenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Tepeyac\UI\UrlActivationPresenter.cs">
+      <Link>UI\UrlActivationPresenter.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Retlang.MonoTouch\Retlang.MonoTouch.csproj">
+      <Project>{613B5F36-6EEF-48F1-AC75-5608038EA3F2}</Project>
+      <Name>Retlang.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tepeyac.iOS\Tepeyac.iOS.csproj">
+      <Project>{BFE9A50D-DC86-4CC9-8A7D-93985B4B11D1}</Project>
+      <Name>Tepeyac.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlAgilityPack.MonoTouch\HtmlAgilityPack.MonoTouch.csproj">
+      <Project>{ABEF8728-33AB-47FA-BAFC-24410B496D7D}</Project>
+      <Name>HtmlAgilityPack.MonoTouch</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Xml;
 using HtmlAgilityPack;
 using Retlang.Fibers;
@@ -216,7 +215,7 @@ namespace Tepeyac.Core
 			return false;
 		}
 		
-		private static Regex Regex = new Regex("\".*\"", RegexOptions.Compiled);
+		private static Regex Regex = new Regex("\".*\"", RegexOptions.None);
 		private static bool TryParseLocation(string data,
 			out double latitude, out double longitude)
 		{
