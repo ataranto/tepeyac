@@ -6,7 +6,7 @@ namespace Tepeyac.UI
 {
 	public class BurritoDayPresenter : GuiPresenter<IBurritoDayModel, IBurritoDayView>
 	{
-		public BurritoDayPresenter(IBurritoDayModel model, IBurritoDayView view, [GuiFiber] IFiber guiFiber)
+		public BurritoDayPresenter(IBurritoDayModel model, IBurritoDayView view, IFiber guiFiber)
 			: base(model, view, guiFiber)
 		{
 			base.model.Changed += this.OnModelChanged;

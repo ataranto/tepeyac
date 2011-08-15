@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Funq;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
-using Ninject;
-using Ninject.Parameters;
 using Tepeyac.Core;
 
 namespace Tepeyac.UI.Cocoa
@@ -19,7 +18,7 @@ namespace Tepeyac.UI.Cocoa
 		private readonly NSMenuItem dismissMenuitem = new NSMenuItem("Dismiss");
 		private readonly NSMenuItem quitMenuItem = new NSMenuItem("Quit Tepeyac");
 		
-		public StatusItemBurritoDayView (IKernel kernel)
+		public StatusItemBurritoDayView (Container container)
 		{
 			this.menu = new NSMenu();
 			
@@ -41,12 +40,10 @@ namespace Tepeyac.UI.Cocoa
 			this.quitMenuItem.Activated += (sender, e) =>
 				NSApplication.SharedApplication.Terminate(sender as NSObject);
 			
-			var parameter = new ConstructorArgument("view", this);
 			this.presenters = new IDisposable[]
 			{
-				kernel.Get<BurritoDayPresenter>(parameter),
-				kernel.Get<UrlActivationPresenter>(parameter),
-
+				container.Resolve<BurritoDayPresenter, IBurritoDayView>(this),
+				container.Resolve<UrlActivationPresenter, IUrlActivationView>(this),
 			};
 		}
 		

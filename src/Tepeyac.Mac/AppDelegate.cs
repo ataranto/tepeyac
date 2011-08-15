@@ -1,7 +1,12 @@
+using Funq;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
-using Ninject;
+using Retlang.Core;
+using Retlang.Fibers;
+using Tepeyac.Core;
 using Tepeyac.Mac.Integration;
+using Tepeyac.UI;
+using Tepeyac.UI.Cocoa;
 
 namespace Tepeyac.Mac
 {
@@ -18,12 +23,26 @@ namespace Tepeyac.Mac
 				
 			}
 			
-			var kernel = new StandardKernel(
-				new Tepeyac.Ninject.Module(),
-			    new Tepeyac.Mac.Ninject.Module()
-			);
-			                  
-			kernel.Get<Tepeyac.UI.MainPresenter>();
+			var container = new Container();
+			Tepeyac.Core.Registry.Register(container);
+			
+			container.Register<IFiber>("GuiFiber", c =>
+			{
+				var executor =
+					c.Resolve<IExecutor>() ??
+					new Executor();
+				var fiber = new CocoaFiber(executor);
+				fiber.Start();
+				
+				return fiber;
+			});
+
+			container.Register<ILauncher>(c =>
+				new Tepeyac.UI.Cocoa.Launcher());
+			container.Register<IBurritoDayView>(c =>
+				new StatusItemBurritoDayView(c));
+			
+			container.Resolve<IBurritoDayView>();
 		}
 	}
 }

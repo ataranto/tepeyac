@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -35,21 +35,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ext\Retlang.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ext\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ext\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="Funq, Version=1.0.0.0, Culture=neutral, PublicKeyToken=95c13cd3fe8e976a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ext\Funq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="UI\" />
-    <Folder Include="Ninject\" />
+    <Folder Include="Funq\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BurritoDayState.cs" />
@@ -59,16 +59,14 @@
     <Compile Include="Core\IWebClient.cs" />
     <Compile Include="Core\WebClient.cs" />
     <Compile Include="UI\BurritoDayPresenter.cs" />
-    <Compile Include="UI\GuiFiberAttribute.cs" />
     <Compile Include="UI\GuiPresenter.cs" />
     <Compile Include="UI\IBurritoDayView.cs" />
     <Compile Include="UI\ILauncher.cs" />
     <Compile Include="UI\IUrlActivationView.cs" />
     <Compile Include="UI\IView.cs" />
     <Compile Include="UI\Launcher.cs" />
-    <Compile Include="UI\MainPresenter.cs" />
     <Compile Include="UI\Presenter.cs" />
     <Compile Include="UI\UrlActivationPresenter.cs" />
-    <Compile Include="Ninject\Module.cs" />
+    <Compile Include="Funq\Registry.cs" />
   </ItemGroup>
 </Project>

@@ -36,13 +36,13 @@
     <Reference Include="MonoMac">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ext\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="Retlang, Version=1.0.6.0, Culture=neutral, PublicKeyToken=a99b3bce1dc72e93">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ext\Retlang.dll</HintPath>
+    </Reference>
+    <Reference Include="Funq, Version=1.0.0.0, Culture=neutral, PublicKeyToken=95c13cd3fe8e976a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ext\Funq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +58,6 @@
     <Compile Include="UI.Cocoa\Launcher.cs" />
     <Compile Include="UI.Cocoa\StatusItemBurritoDayView.cs" />
     <Compile Include="Integration\LSSharedFileList.cs" />
-    <Compile Include="Ninject\Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainMenu.xib" />
@@ -71,7 +70,6 @@
   <ItemGroup>
     <Folder Include="UI.Cocoa\" />
     <Folder Include="Integration\" />
-    <Folder Include="Ninject\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tepeyac\Tepeyac.csproj">
