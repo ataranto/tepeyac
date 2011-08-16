@@ -20,6 +20,10 @@ build/
 *.mode2v3
 *.pbxuser
 
+# visual studio
+*.suo
+*.csproj.user
+
 # external library sources
 ext/funq
 ext/htmlagilitypack
