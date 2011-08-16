@@ -24,7 +24,7 @@ namespace Tepeyac.Mac
 			}
 			
 			var container = new Container();
-			Tepeyac.Core.Registry.Register(container);
+			Tepeyac.Funq.Registry.Register(container);
 			
 			container.Register<IFiber>("GuiFiber", c =>
 			{
