@@ -1,9 +1,10 @@
 using Funq;
-using Retlang.Fibers;
 using Retlang.Core;
+using Retlang.Fibers;
+using Tepeyac.Core;
 using Tepeyac.UI;
 
-namespace Tepeyac.Core
+namespace Tepeyac.Funq
 {
 	public static class Registry
 	{
