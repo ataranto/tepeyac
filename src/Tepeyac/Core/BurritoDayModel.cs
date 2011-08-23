@@ -179,11 +179,12 @@ namespace Tepeyac.Core
 		{
 			this.StopLocationPolling();
 			
-			var ms = this.state == BurritoDayState.Unknown ?
+			var regular = (long)interval.TotalMilliseconds;
+			var first = this.state == BurritoDayState.Unknown ?
                 0 :
-                (long)interval.TotalMilliseconds;
+                regular;
 			this.location_scheduled =
-				this.fiber.ScheduleOnInterval(this.PollLocation, ms, ms);
+				this.fiber.ScheduleOnInterval(this.PollLocation, first, regular);
 		}
 		
 		private void StopLocationPolling()
