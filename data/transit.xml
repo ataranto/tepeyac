@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DistanceMatrixResponse>
+ <status>OK</status>
+ <origin_address>Foo St, Bar, CA 0000
+ <destination_address>62 1st St, San Francisco, CA 94105, USA</destination_address>
+ <row>
+  <element>
+   <status>OK</status>
+   <duration>
+    <value>1200</value>
+    <text>20 mins</text>
+   </duration>
+   <distance>
+    <value>20000</value>
+    <text>12.4 mi</text>
+   </distance>
+  </element>
+ </row>
+</DistanceMatrixResponse>
