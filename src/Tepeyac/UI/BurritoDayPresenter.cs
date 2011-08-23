@@ -43,7 +43,7 @@ namespace Tepeyac.UI
 			var state = base.model.State;
 			var description = this.GetDescription(state);
 			var duration = String.Format("ETA: {0} minutes",
-				Math.Floor(base.model.Duration.TotalMinutes));
+				Math.Ceiling(base.model.Duration.TotalMinutes));
 			
 			base.Invoke(() =>
 			{
@@ -65,8 +65,8 @@ namespace Tepeyac.UI
 				case BurritoDayState.Yes:
 					return "Today is burrito day";
 				case BurritoDayState.Transit:
-					return String.Format("Burritos are {0:0.00} minutes away",
-						base.model.Duration.TotalMinutes);
+					return String.Format("Burritos are about {0} minutes away",
+						Math.Ceiling(base.model.Duration.TotalMinutes));
 				case BurritoDayState.Arrived:
 					return "Burritos have arrived";
 				default:
