@@ -11,6 +11,8 @@
     <RootNamespace>Tepeyac.Mac</RootNamespace>
     <AssemblyName>Tepeyac.Mac</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ReleaseVersion>0.4</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,5 +98,6 @@
     <Content Include="..\..\ext\libIntegration.dylib">
       <Link>libIntegration.dylib</Link>
     </Content>
+    <Content Include="tepeyac.icns" />
   </ItemGroup>
 </Project>

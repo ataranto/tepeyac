@@ -4,10 +4,7 @@ namespace Tepeyac.Mac.Integration
 {
 	public static class LSSharedFileList
 	{
-		private const string path = "@executable_path/../Resources/libIntegration.dylib";
-		
-		[DllImport(path)]
+		[DllImport("Integration")]
 		public static extern void InsertLoginItem(string path);
 	}
 }
-

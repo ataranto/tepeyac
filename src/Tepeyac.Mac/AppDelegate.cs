@@ -14,15 +14,8 @@ namespace Tepeyac.Mac
 	{
 		public override void FinishedLaunching (NSObject notification)
 		{
-			try
-			{
-				LSSharedFileList.InsertLoginItem(NSBundle.MainBundle.BundlePath);
-			}
-			catch 	
-			{
-				
-			}
-			
+			LSSharedFileList.InsertLoginItem(NSBundle.MainBundle.BundlePath);
+
 			var container = new Container();
 			Tepeyac.Funq.Registry.Register(container);
 			
