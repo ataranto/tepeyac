@@ -17,7 +17,10 @@ namespace Tepeyac.Core
 		private readonly Uri burrito_day_uri = new Uri("http://isitburritoday.com");
 		private readonly Uri latitude_uri = new Uri("http://www.google.com/latitude/apps/badge/api?user=797967215506697296&type=iframe&maptype=roadmap");
 		private readonly string distance_api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA&origins=";
-
+		
+		private readonly int origin_threshold = 39000; // ~24 miles
+		private readonly int destination_threshold = 1600; // ~1 mile
+		
 		private readonly IFiber fiber;
 		private readonly IWebClient client;
 		
@@ -134,27 +137,25 @@ namespace Tepeyac.Core
 			{
 				var uri = new Uri(this.distance_api + latitude + "," + longitude);
 				data = this.client.Download(uri);
-			
-				string new_location;
-				TimeSpan new_duration;
-				int new_meters;
 				
-				if (BurritoDayModel.TryParseDistance(data,
-					out new_location, out new_duration, out new_meters))
-				{	
-					if (new_duration > TimeSpan.FromMinutes(5))
+				bool success;
+				
+				lock (this.sync)
+				{
+					success = BurritoDayModel.TryParseDistance(data,
+						out this.location, out this.duration, out this.meters);
+				}
+				
+				if (success)
+				{
+					if (meters >= this.destination_threshold &&
+						meters <= this.origin_threshold)
 					{
-						lock (this.sync)
-						{
-							this.location = new_location;
-							this.duration = new_duration;
-							this.meters = new_meters;
-						}
-						
 						new_state = BurritoDayState.Transit;
 						this.StartLocationPolling(TimeSpan.FromMinutes(2));
 					}
-					else if (this.state == BurritoDayState.Transit)
+					else if (this.state == BurritoDayState.Transit &&
+						meters <= this.destination_threshold)
 					{
 						new_state = BurritoDayState.Arrived;
 						this.StopLocationPolling();

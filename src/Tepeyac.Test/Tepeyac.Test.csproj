@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -65,13 +65,35 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\arrived.html" />
-    <EmbeddedResource Include="Resources\arrived.xml" />
-    <EmbeddedResource Include="Resources\harbor.html" />
-    <EmbeddedResource Include="Resources\harbor.xml" />
-    <EmbeddedResource Include="Resources\latitude.html" />
-    <EmbeddedResource Include="Resources\no.html" />
-    <EmbeddedResource Include="Resources\tomorrow.html" />
-    <EmbeddedResource Include="Resources\yes.html" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\data\arrived.html">
+      <Link>Resources\arrived.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\arrived.xml">
+      <Link>Resources\arrived.xml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\harbor.html">
+      <Link>Resources\harbor.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\harbor.xml">
+      <Link>Resources\harbor.xml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\latitude.html">
+      <Link>Resources\latitude.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\no.html">
+      <Link>Resources\no.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\tomorrow.html">
+      <Link>Resources\tomorrow.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\transit.xml">
+      <Link>Resources\transit.xml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\yes.html">
+      <Link>Resources\yes.html</Link>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
