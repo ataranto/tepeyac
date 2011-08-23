@@ -22,9 +22,10 @@ namespace Tepeyac.Core
 		private readonly IWebClient client;
 		
 		private BurritoDayState state = BurritoDayState.Unknown;
-		private TimeSpan duration = TimeSpan.Zero;
-		private string location = null;
 		private IDisposable location_scheduled = null;
+		private string location = null;
+		private TimeSpan duration = TimeSpan.Zero;
+		private int meters = 0;
 		
 		public BurritoDayModel(IFiber fiber, IWebClient client)
 		{
@@ -53,8 +54,8 @@ namespace Tepeyac.Core
 						return;
 					}
 					
-					this.duration = TimeSpan.Zero;
 					this.location = null;
+					this.duration = TimeSpan.Zero;
 				}
 				
 				lock (this.sync)
@@ -76,7 +77,9 @@ namespace Tepeyac.Core
 			{
 				lock (this.sync)
 				{
-					return this.duration;
+					return this.state == BurritoDayState.Transit ?
+						this.duration :
+						TimeSpan.Zero;
 				}
 			}
 		}
@@ -87,7 +90,9 @@ namespace Tepeyac.Core
 			{
 				lock (this.sync)
 				{
-					return this.location;
+					return this.state == BurritoDayState.Transit ?
+						this.location :
+						null;
 				}
 			}
 		}
@@ -130,17 +135,20 @@ namespace Tepeyac.Core
 				var uri = new Uri(this.distance_api + latitude + "," + longitude);
 				data = this.client.Download(uri);
 			
-				TimeSpan new_duration;
 				string new_location;
+				TimeSpan new_duration;
+				int new_meters;
 				
-				if (BurritoDayModel.TryParseDistance(data, out new_duration, out new_location))
+				if (BurritoDayModel.TryParseDistance(data,
+					out new_location, out new_duration, out new_meters))
 				{	
 					if (new_duration > TimeSpan.FromMinutes(5))
 					{
 						lock (this.sync)
 						{
-							this.duration = new_duration;
 							this.location = new_location;
+							this.duration = new_duration;
+							this.meters = new_meters;
 						}
 						
 						new_state = BurritoDayState.Transit;
@@ -262,25 +270,32 @@ namespace Tepeyac.Core
 		}
 		
 		private static bool TryParseDistance(string data,
-			out TimeSpan duration, out string location)
+			out string location, out TimeSpan duration, out int meters)
 		{
 			var doc = new XmlDocument();
 			doc.LoadXml(data ?? String.Empty);
 			
-			var node = doc.SelectSingleNode("//duration/value");
+			var node = doc.SelectSingleNode("//origin_address");
+			location = node != null ?
+				node.InnerText :
+				null;
+			
+			node = doc.SelectSingleNode("//duration/value");
 			double seconds;
 			duration = node != null && double.TryParse(node.InnerText, out seconds) ?
 				TimeSpan.FromSeconds(seconds) :
 				TimeSpan.Zero;
 			
-			node = doc.SelectSingleNode("//origin_address");
-			location = node != null ?
-				node.InnerText :
-				null;
+			node = doc.SelectSingleNode("//distance/value");
+			if (node == null || !int.TryParse(node.InnerText, out meters))
+			{
+				meters = 0;
+			}
 
 			return
+				!String.IsNullOrEmpty(location) &&
 				duration > TimeSpan.Zero &&
-				!String.IsNullOrEmpty(location);
+				meters > 0;
 		}
 	}
 }
