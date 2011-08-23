@@ -49,7 +49,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.Unknown, this.model.State);
 			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
-			Assert.AreEqual(null, this.model.Location);
+			Assert.IsNull(this.model.Location);
 		}
 		
 		[Test]
@@ -60,7 +60,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.No, this.model.State);
 			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
-			Assert.AreEqual(null, this.model.Location);
+			Assert.IsNull(this.model.Location);
 		}
 		
 		[Test]
@@ -71,7 +71,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.Tomorrow, this.model.State);
 			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
-			Assert.AreEqual(null, this.model.Location);
+			Assert.IsNull(this.model.Location);
 		}
 		
 		[Test]
@@ -82,7 +82,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
 			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
-			Assert.AreEqual(null, this.model.Location);
+			Assert.IsNull(this.model.Location);
 		}
 		
 		[Test]
@@ -95,7 +95,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
 			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
-			Assert.AreEqual(null, this.model.Location);
+			Assert.IsNull(this.model.Location);
 		}
 		
 		[Test]
@@ -108,7 +108,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.Transit, this.model.State);
 			Assert.AreEqual(TimeSpan.FromSeconds(1200), this.model.Duration);
-			Assert.AreEqual("Foo St, Bar, CA 00000", this.model.Location);
+			Assert.AreEqual("Foo St, Bar, CA 00000, USA", this.model.Location);
 		}
 		
 		[Test]
@@ -124,7 +124,7 @@ namespace Tepeyac.Test.Core
 			
 			Assert.AreEqual(BurritoDayState.Arrived, this.model.State);
 			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
-			Assert.AreEqual(null, this.model.Location);
+			Assert.IsNull(this.model.Location);
 		}
 		
 		private void ExecuteAllScheduled(int count)

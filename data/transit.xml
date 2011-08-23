@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DistanceMatrixResponse>
  <status>OK</status>
- <origin_address>Foo St, Bar, CA 00000</origin_address>
+ <origin_address>Foo St, Bar, CA 00000, USA</origin_address>
  <destination_address>62 1st St, San Francisco, CA 94105, USA</destination_address>
  <row>
   <element>
