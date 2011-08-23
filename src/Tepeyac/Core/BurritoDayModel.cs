@@ -128,9 +128,12 @@ namespace Tepeyac.Core
 		
 		private void PollLocation()
 		{
-			var new_state = this.state == BurritoDayState.Arrived ?
-				BurritoDayState.Arrived :
-				BurritoDayState.Yes;
+			if (this.state == BurritoDayState.Arrived)
+			{
+				return;
+			}
+
+			var new_state = BurritoDayState.Yes;
 			var data = this.client.Download(this.latitude_uri);
 			
 			double latitude, longitude;
