@@ -41,7 +41,8 @@ namespace Tepeyac.Core
 		
 		public BurritoDayState State
 		{
-			get {
+			get
+			{
 				lock (this.sync)
 				{
 					return this.state;

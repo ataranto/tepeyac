@@ -15,6 +15,9 @@ namespace Tepeyac.UI.Cocoa
 		private readonly NSMenu menu = new NSMenu();
 		private readonly NSMenuItem refreshMenuItem = new NSMenuItem("Refresh");
 		private readonly NSMenuItem launchMenuItem = new NSMenuItem("Launch Burrito Website");
+		private readonly NSMenuItem durationMenuItem = new NSMenuItem();
+		private readonly NSMenuItem locationMenuItem = new NSMenuItem();
+		private readonly NSMenuItem separatorMenuItem = NSMenuItem.SeparatorItem;
 		private readonly NSMenuItem dismissMenuitem = new NSMenuItem("Dismiss");
 		private readonly NSMenuItem quitMenuItem = new NSMenuItem("Quit Tepeyac");
 		
@@ -24,10 +27,15 @@ namespace Tepeyac.UI.Cocoa
 			
 			this.menu.AddItem(this.refreshMenuItem);
 			this.menu.AddItem(this.launchMenuItem);
+			
 			this.menu.AddItem(NSMenuItem.SeparatorItem);
+			
+			this.menu.AddItem(this.durationMenuItem);
+			this.menu.AddItem(this.locationMenuItem);
+			
+			this.menu.AddItem(this.separatorMenuItem);;
+			
 			this.menu.AddItem(this.dismissMenuitem);
-			//this.Menu.AddItem(this.preferencesMenuItem);
-			this.menu.AddItem(NSMenuItem.SeparatorItem);
 			this.menu.AddItem(this.quitMenuItem);
 			
 			this.launchMenuItem.Activated += delegate {
@@ -112,6 +120,19 @@ namespace Tepeyac.UI.Cocoa
 
 			this.si.Image = new NSImage(path);
 			this.si.ToolTip = description;
+		}
+		
+		void IBurritoDayView.SetLocation(bool visible, string location, string duration)
+		{
+			this.durationMenuItem.Title = duration ?? String.Empty;
+			this.locationMenuItem.Title = location ?? String.Empty;
+			
+			this.durationMenuItem.Hidden =
+				!visible || String.IsNullOrEmpty(this.durationMenuItem.Title);
+			this.locationMenuItem.Hidden =
+				!visible || String.IsNullOrEmpty(this.locationMenuItem.Title);
+			this.separatorMenuItem.Hidden =
+				this.durationMenuItem.Hidden && this.locationMenuItem.Hidden;
 		}
 		
 		#endregion

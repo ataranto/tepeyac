@@ -13,7 +13,7 @@ namespace Tepeyac.UI
 			base.view.RefreshActivated += this.OnViewRefreshActivated;
 			base.view.DismissActivated += this.OnViewDismissActivated;
 			
-			this.ViewSetState(base.model.State);
+			this.ViewUpdate();
 		}
 		
 		public override void Dispose()
@@ -25,7 +25,7 @@ namespace Tepeyac.UI
 		
 		private void OnModelChanged(object sender, EventArgs e)
 		{
-			this.ViewSetState (base.model.State);
+			this.ViewUpdate ();
 		}
 		
 		private void OnViewRefreshActivated(object sender, EventArgs e)
@@ -38,14 +38,19 @@ namespace Tepeyac.UI
 			base.view.Visible = false;
 		}
 
-		private void ViewSetState (BurritoDayState state)
+		private void ViewUpdate ()
 		{
+			var state = base.model.State;
 			var description = this.GetDescription(state);
+			var duration = String.Format("ETA: {0} minutes",
+				Math.Floor(base.model.Duration.TotalMinutes));
 			
 			base.Invoke(() =>
 			{
 				base.view.Visible = true;
-				base.view.SetState(state, description);	
+				base.view.SetState(state, description);
+				base.view.SetLocation(state == BurritoDayState.Transit,
+					base.model.Location, duration);
 			});
 		}
 		
@@ -60,7 +65,7 @@ namespace Tepeyac.UI
 				case BurritoDayState.Yes:
 					return "Today is burrito day";
 				case BurritoDayState.Transit:
-					return String.Format("Burritos are {0} minutes away",
+					return String.Format("Burritos are {0:0.00} minutes away",
 						base.model.Duration.TotalMinutes);
 				case BurritoDayState.Arrived:
 					return "Burritos have arrived";

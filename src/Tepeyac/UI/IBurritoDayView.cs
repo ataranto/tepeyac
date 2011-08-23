@@ -9,5 +9,6 @@ namespace Tepeyac.UI
 		event EventHandler DismissActivated;
 		
 		void SetState(BurritoDayState state, string description);
+		void SetLocation(bool visible, string location, string duration);
 	}
 }
