@@ -86,16 +86,29 @@ namespace Tepeyac.Test.Core
 		}
 		
 		[Test]
-		public void TestInTransit()
+		public void TestHarbor()
 		{
 			this.sequence.Enqueue("yes.html");
 			this.sequence.Enqueue("harbor.html");
 			this.sequence.Enqueue("harbor.xml");
 			this.ExecuteAllScheduled(2);
 			
+			Assert.AreEqual(BurritoDayState.Yes, this.model.State);
+			Assert.AreEqual(TimeSpan.Zero, this.model.Duration);
+			Assert.AreEqual(null, this.model.Location);
+		}
+		
+		[Test]
+		public void TestInTransit()
+		{
+			this.sequence.Enqueue("yes.html");
+			this.sequence.Enqueue("harbor.html");
+			this.sequence.Enqueue("transit.xml");
+			this.ExecuteAllScheduled(2);
+			
 			Assert.AreEqual(BurritoDayState.Transit, this.model.State);
-			Assert.AreEqual(TimeSpan.FromSeconds(2027), this.model.Duration);
-			Assert.AreEqual("Bayshore Fwy, Belmont, CA 94002, USA", this.model.Location);
+			Assert.AreEqual(TimeSpan.FromSeconds(1200), this.model.Duration);
+			Assert.AreEqual("Foo St, Bar, CA 00000", this.model.Location);
 		}
 		
 		[Test]

@@ -2,9 +2,6 @@ burrito todo:
     - fix double poll on initial location pull due to ms == 0 (line 178)
         need to set initial to 0 when state == Unknown, but interval should
         never be 0, so ScheduleOnInterval(foo, 0, NOT_ZERO)
-    - burritos are considered in transit when manish turns on latitude,
-        we should detect when he's actually at harbor burrito
     - state poll interval needs to be higher than location poll interval
         at all times.
     - cancel location polling when arrived state is detected
-    - need to use meters/distance rather than ETA, which is traffic dependant     
