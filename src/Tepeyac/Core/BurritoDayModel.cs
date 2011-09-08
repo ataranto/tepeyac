@@ -16,7 +16,7 @@ namespace Tepeyac.Core
 		private readonly TimeSpan interval = TimeSpan.FromHours(1);
 		private readonly Uri burrito_day_uri = new Uri("http://isitburritoday.com");
 		private readonly Uri latitude_uri = new Uri("http://www.google.com/latitude/apps/badge/api?user=797967215506697296&type=iframe&maptype=roadmap");
-		private readonly string distance_api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=62+1st+St+San+Francisco+CA&origins=";
+		private readonly string distance_api = "http://maps.googleapis.com/maps/api/distancematrix/xml?sensor=false&units=imperial&destinations=1550+Bryant+St+San+Francisco+CA&origins=";
 		
 		private readonly int origin_threshold = 39000; // ~24 miles
 		private readonly int destination_threshold = 1600; // ~1 mile
