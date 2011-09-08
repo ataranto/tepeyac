@@ -11,7 +11,7 @@
     <RootNamespace>Tepeyac.Mac</RootNamespace>
     <AssemblyName>Tepeyac.Mac</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <ReleaseVersion>0.4</ReleaseVersion>
+    <ReleaseVersion>0.5</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
